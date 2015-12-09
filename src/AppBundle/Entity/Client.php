@@ -54,6 +54,17 @@ class Client
      */
     protected $email2;
 
+
+    /**
+     * @ORM\Column(type="string", length=2)
+     */
+    protected $language;
+
+    /**
+     * @ORM\Column(type="string", length=3)
+     */
+    protected $currency;
+
     /**
      * Get id
      *
@@ -230,5 +241,53 @@ class Client
     public function getEmail2()
     {
         return $this->email2;
+    }
+
+    /**
+     * Set language
+     *
+     * @param string $language
+     *
+     * @return Client
+     */
+    public function setLanguage($language)
+    {
+        $this->language = $language;
+
+        return $this;
+    }
+
+    /**
+     * Get language
+     *
+     * @return string
+     */
+    public function getLanguage()
+    {
+        return $this->language;
+    }
+
+    /**
+     * Set currency
+     *
+     * @param string $currency
+     *
+     * @return Client
+     */
+    public function setCurrency($currency)
+    {
+        $this->currency = $currency;
+
+        return $this;
+    }
+
+    /**
+     * Get currency
+     *
+     * @return string
+     */
+    public function getCurrency()
+    {
+        return $this->currency;
     }
 }

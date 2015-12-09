@@ -36,16 +36,6 @@ class Invoice
     protected $date;
 
     /**
-     * @ORM\Column(type="string", length=2)
-     */
-    protected $language;
-
-    /**
-     * @ORM\Column(type="string", length=3)
-     */
-    protected $currency;
-
-    /**
      * Get id
      *
      * @return integer
@@ -101,54 +91,6 @@ class Invoice
     public function getDate()
     {
         return $this->date;
-    }
-
-    /**
-     * Set language
-     *
-     * @param string $language
-     *
-     * @return Invoice
-     */
-    public function setLanguage($language)
-    {
-        $this->language = $language;
-
-        return $this;
-    }
-
-    /**
-     * Get language
-     *
-     * @return string
-     */
-    public function getLanguage()
-    {
-        return $this->language;
-    }
-
-    /**
-     * Set currency
-     *
-     * @param string $currency
-     *
-     * @return Invoice
-     */
-    public function setCurrency($currency)
-    {
-        $this->currency = $currency;
-
-        return $this;
-    }
-
-    /**
-     * Get currency
-     *
-     * @return string
-     */
-    public function getCurrency()
-    {
-        return $this->currency;
     }
 
     /**
