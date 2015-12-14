@@ -10,22 +10,28 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class InvoiceType extends AbstractType
+class ClientType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('number')
-            ->add('date', null, array('widget' => 'single_text'))
-            ->add('client', null, ['property' => 'company_name'])
-            ->add('save', 'submit', array('label' => 'Submit New Invoice'))
+            ->add('company_name')
+            ->add('contact_name', 'text', array('required' => false))
+            ->add('address','textarea', array('required' => false))
+            ->add('telephone1', 'text', array('required' => false))
+            ->add('telephone2', 'text', array('required' => false))
+            ->add('email1', 'text', array('required' => false))
+            ->add('email2', 'text', array('required' => false))
+            ->add('language','locale')
+            ->add('currency','currency')
+            ->add('save', 'submit', array('label' => 'Submit New Client'))
             ->getForm();
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Invoice'
+            'data_class' => 'AppBundle\Entity\Client'
         ));
     }
 
@@ -37,6 +43,6 @@ class InvoiceType extends AbstractType
     public function getName()
     {
         // TODO: Implement getName() method.
-        return 'InvoiceType';
+        return 'ClientType';
     }
 }

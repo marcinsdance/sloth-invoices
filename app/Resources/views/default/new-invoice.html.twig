@@ -1,3 +1,8 @@
-{{ form_start(form) }}
-{{ form_widget(form) }}
-{{ form_end(form) }}
+{% if clients is empty %}
+    You need to have at least one client to create an invoice.<br>
+    <a href="{{ path('new-client') }}">Add New Client</a>
+{% else %}
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+{% endif %}

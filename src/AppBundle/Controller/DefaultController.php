@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use AppBundle\Entity\Invoice;
+use AppBundle\Entity\Client;
 use AppBundle\Form\Type\InvoiceType;
 
 class DefaultController extends Controller
@@ -26,15 +27,67 @@ class DefaultController extends Controller
     }
 
     /**
+     * @Route("/new-client", name="new-client")
+     */
+    public function newClientAction(Request $request)
+    {
+        $client = new Client();
+        $form = $this->createForm($this->get('form_client_type'), $client);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($client);
+            $em->flush();
+            $this->addFlash(
+                'success',
+                'Client has been added!'
+            );
+        } else {
+            $this->addFlash(
+                'error',
+                'All telling error...'
+            );
+        }
+
+        return $this->render('default/new-client.html.twig', array(
+            'form' => $form->createView()
+        ));
+    }
+
+    /**
      * @Route("/new-invoice", name="new-invoice")
      */
     public function newInvoiceAction(Request $request)
     {
+        $clients = $this->getDoctrine()
+            ->getRepository('AppBundle:Client')
+            ->findAll();
+
         $invoice = new Invoice();
         $form = $this->createForm($this->get('form_invoice_type'), $invoice);
 
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($invoice);
+            $em->flush();
+            $this->addFlash(
+                'success',
+                'Client has been added!'
+            );
+        } else {
+            $this->addFlash(
+                'error',
+                'All telling error...'
+            );
+        }
+
         return $this->render('default/new-invoice.html.twig', array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'clients' => $clients
         ));
     }
 

@@ -9,3 +9,5 @@ services:
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
     form_invoice_type:
         class: AppBundle\Form\Type\InvoiceType
+    form_client_type:
+        class: AppBundle\Form\Type\ClientType

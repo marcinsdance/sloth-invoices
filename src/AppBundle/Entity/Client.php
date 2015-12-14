@@ -30,27 +30,27 @@ class Client
     protected $contact_name;
 
     /**
-     * @ORM\Column(type="string", length=256)
+     * @ORM\Column(type="string", nullable=TRUE, length=256)
      */
     protected $address;
 
     /**
-     * @ORM\Column(type="string", length=30)
+     * @ORM\Column(type="string", nullable=TRUE, length=30)
      */
     protected $telephone1;
 
     /**
-     * @ORM\Column(type="string", length=30)
+     * @ORM\Column(type="string", nullable=TRUE, length=30)
      */
     protected $telephone2;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", nullable=TRUE, length=50)
      */
     protected $email1;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", nullable=TRUE, length=50)
      */
     protected $email2;
 
@@ -289,5 +289,10 @@ class Client
     public function getCurrency()
     {
         return $this->currency;
+    }
+
+    public function __toString()
+    {
+        return $this->company_name;
     }
 }
