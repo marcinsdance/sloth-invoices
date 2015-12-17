@@ -13,11 +13,10 @@
         {{ flash_message }}
     </div>
 {% endfor %}
-{% if clients is empty %}
-    You need to have at least one client to create an invoice.<br>
-    <a href="{{ path('new-client') }}">Add New Client</a>
-{% else %}
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    {{ form_end(form) }}
-{% endif %}
+
+<table class="flash-error">
+    <tr><td>Id</td><td>Client</td><td>Number</td><td>Date</td></tr>
+    {% for invoice in invoices %}
+        <tr><td>{{ invoice.id }}</td><td>{{ invoice.client }}</td><td>{{ invoice.number }}</td><td>{{ invoice.date|date('Y-m-d') }}</td></tr>
+    {% endfor %}
+    </table>

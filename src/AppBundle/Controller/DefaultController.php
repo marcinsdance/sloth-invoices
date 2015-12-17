@@ -42,12 +42,7 @@ class DefaultController extends Controller
             $em->flush();
             $this->addFlash(
                 'success',
-                'Client has been added!'
-            );
-        } else {
-            $this->addFlash(
-                'error',
-                'All telling error...'
+                'Client has been added.'
             );
         }
 
@@ -76,18 +71,27 @@ class DefaultController extends Controller
             $em->flush();
             $this->addFlash(
                 'success',
-                'Client has been added!'
-            );
-        } else {
-            $this->addFlash(
-                'error',
-                'All telling error...'
+                'Invoice has been added.'
             );
         }
 
         return $this->render('default/new-invoice.html.twig', array(
             'form' => $form->createView(),
             'clients' => $clients
+        ));
+    }
+
+    /**
+     * @Route("/invoices", name="invoices")
+     */
+    public function invoicesAction(Request $request)
+    {
+        $invoices = $this->getDoctrine()
+            ->getRepository('AppBundle:Invoice')
+            ->findAll();
+
+        return $this->render('default/invoices.html.twig', array(
+            'invoices' => $invoices
         ));
     }
 
