@@ -11,3 +11,5 @@ services:
         class: AppBundle\Form\Type\InvoiceType
     form_client_type:
         class: AppBundle\Form\Type\ClientType
+    form_item_type:
+        class: AppBundle\Form\Type\ItemType

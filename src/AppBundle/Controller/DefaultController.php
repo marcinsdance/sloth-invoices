@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use AppBundle\Entity\Invoice;
+use AppBundle\Entity\Item;
 use AppBundle\Entity\Client;
 use AppBundle\Form\Type\InvoiceType;
 
@@ -78,6 +79,32 @@ class DefaultController extends Controller
         return $this->render('default/new-invoice.html.twig', array(
             'form' => $form->createView(),
             'clients' => $clients
+        ));
+    }
+
+    /**
+     * @Route("/new-item/invoice/{invoice}", name="new-item")
+     */
+    public function newItemAction(Request $request, $invoice)
+    {
+        $item = new Item();
+        $item->setInvoice($invoice);
+        $form = $this->createForm($this->get('form_item_type'), $item);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($item);
+            $em->flush();
+            $this->addFlash(
+                'success',
+                'Item has been added.'
+            );
+        }
+
+        return $this->render('default/new-item.html.twig', array(
+            'form' => $form->createView()
         ));
     }
 

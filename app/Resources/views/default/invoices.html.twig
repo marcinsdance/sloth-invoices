@@ -15,8 +15,14 @@
 {% endfor %}
 
 <table class="flash-error">
-    <tr><td>Id</td><td>Client</td><td>Number</td><td>Date</td></tr>
+    <tr><td>Id</td><td>Client</td><td>Number</td><td>Date</td><td>&nbsp;</td></tr>
     {% for invoice in invoices %}
-        <tr><td>{{ invoice.id }}</td><td>{{ invoice.client }}</td><td>{{ invoice.number }}</td><td>{{ invoice.date|date('Y-m-d') }}</td></tr>
+        <tr>
+            <td>{{ invoice.id }}</td>
+            <td>{{ invoice.client }}</td>
+            <td>{{ invoice.number }}</td>
+            <td>{{ invoice.date|date('Y-m-d') }}</td>
+            <td><a href="invoice/edit/{{ invoice.id }}">Edit</a></td>
+        </tr>
     {% endfor %}
     </table>
