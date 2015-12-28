@@ -1,0 +1,30 @@
+{
+  "name": "voicesin",
+  "authors": [
+    "Marcin Dancewicz <mdancewicz@gmail.com>"
+  ],
+  "description": "Invoices management",
+  "main": "app/Resources/views/base.html.twig",
+  "moduleType": [
+    "amd"
+  ],
+  "keywords": [
+    "Invoice",
+    "management"
+  ],
+  "license": "MIT",
+  "homepage": "http://www.voicein.net",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "web/assets/vendor/",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "v4-dev",
+    "tether-tooltip": "~1.1.0"
+  }
+}

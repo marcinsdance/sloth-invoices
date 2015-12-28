@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
-        <meta charset="UTF-8" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap/dist/css/bootstrap.min.css') }}">
     </head>
     <body>
         {% block body %}
@@ -23,9 +26,25 @@
                     {{ flash_message }}
                 </div>
             {% endfor %}
-            {{ knp_menu_render('AppBundle:Builder:mainMenu') }}
         {% endblock %}
-        {% block content %}{% endblock %}
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3 blog-sidebar">
+                    {{ knp_menu_render('AppBundle:Builder:mainMenu') }}
+                </div>
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+        <footer class="footer">
+            <div class="container">
+                <p class="text-muted">Place sticky footer content here.</p>
+            </div>
+        </footer>
         {% block javascripts %}{% endblock %}
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="{{ asset('assets/vendor/tether/dist/js/tether.min.js') }}"></script>
+        <script src="{{ asset('assets/vendor/tether-drop/dist/js/drop.min.js') }}"></script>
+        <script src="{{ asset('assets/vendor/tether-tooltip/dist/js/tooltip.min.js') }}"></script>
+        <script src="{{ asset('assets/vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
     </body>
 </html>

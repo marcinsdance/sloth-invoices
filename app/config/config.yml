@@ -22,7 +22,7 @@ framework:
     templating:
         engines: ['twig']
         assets_base_url:
-          - "//voicesin.dev/"
+          - "//voicein.dev/"
         #assets_version: SomeVersionScheme
     default_locale:  "%locale%"
     trusted_hosts:   ~
