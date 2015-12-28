@@ -1,19 +1,5 @@
-{% for flash_message in app.session.flashbag.get('notice') %}
-    <div class="flash-notice">
-        {{ flash_message }}
-    </div>
-{% endfor %}
-{% for flash_message in app.session.flashbag.get('success') %}
-    <div class="flash-success">
-        {{ flash_message }}
-    </div>
-{% endfor %}
-{% for flash_message in app.session.flashbag.get('error') %}
-    <div class="flash-error">
-        {{ flash_message }}
-    </div>
-{% endfor %}
-
+{% extends "base.html.twig" %}
+{% block content %}
 <table class="flash-error">
     <tr><td>Id</td><td>Client</td><td>Number</td><td>Date</td><td>&nbsp;</td></tr>
     {% for invoice in invoices %}
@@ -25,4 +11,5 @@
             <td><a href="invoice/edit/{{ invoice.id }}">Edit</a></td>
         </tr>
     {% endfor %}
-    </table>
+</table>
+{% endblock %}

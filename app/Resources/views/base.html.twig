@@ -7,7 +7,25 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        {% block body %}{% endblock %}
+        {% block body %}
+            {% for flash_message in app.session.flashbag.get('notice') %}
+                <div class="flash-notice">
+                    {{ flash_message }}
+                </div>
+            {% endfor %}
+            {% for flash_message in app.session.flashbag.get('success') %}
+                <div class="flash-success">
+                    {{ flash_message }}
+                </div>
+            {% endfor %}
+            {% for flash_message in app.session.flashbag.get('error') %}
+                <div class="flash-error">
+                    {{ flash_message }}
+                </div>
+            {% endfor %}
+            {{ knp_menu_render('AppBundle:Builder:mainMenu') }}
+        {% endblock %}
+        {% block content %}{% endblock %}
         {% block javascripts %}{% endblock %}
     </body>
 </html>

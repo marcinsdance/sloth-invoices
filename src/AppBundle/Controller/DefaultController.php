@@ -127,7 +127,7 @@ class DefaultController extends Controller
      */
     public function pdfAction(Request $request)
     {
-        $pageUrl = $this->generateUrl('homepage', array(), true); // use absolute path!
+        $pageUrl = $this->generateUrl('invoices', array(), true); // use absolute path!
 
         return new Response(
             $this->get('knp_snappy.pdf')->getOutput($pageUrl),
