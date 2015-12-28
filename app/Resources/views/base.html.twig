@@ -11,6 +11,22 @@
     </head>
     <body>
         {% block body %}
+            <nav class="navbar navbar-default navbar-fixed-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#">VoiceIn - Invoice management</a>
+                    </div>
+                    <div id="navbar" class="navbar-collapse navbar-nav">
+                        {{ knp_menu_render('AppBundle:Builder:mainMenu') }}
+                    </div><!--/.nav-collapse -->
+                </div>
+            </nav>
             {% for flash_message in app.session.flashbag.get('notice') %}
                 <div class="flash-notice">
                     {{ flash_message }}
@@ -26,25 +42,25 @@
                     {{ flash_message }}
                 </div>
             {% endfor %}
-        {% endblock %}
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-3 blog-sidebar">
-                    {{ knp_menu_render('AppBundle:Builder:mainMenu') }}
-                </div>
-                {% block content %}{% endblock %}
-            </div>
-        </div>
-        <footer class="footer">
             <div class="container">
-                <p class="text-muted">Place sticky footer content here.</p>
+                <div class="row">
+                    <div class="col-sm-3 blog-sidebar">
+                        sidebar
+                    </div>
+                    {% block content %}{% endblock %}
+                </div>
             </div>
-        </footer>
-        {% block javascripts %}{% endblock %}
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <script src="{{ asset('assets/vendor/tether/dist/js/tether.min.js') }}"></script>
-        <script src="{{ asset('assets/vendor/tether-drop/dist/js/drop.min.js') }}"></script>
-        <script src="{{ asset('assets/vendor/tether-tooltip/dist/js/tooltip.min.js') }}"></script>
-        <script src="{{ asset('assets/vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+            <footer class="footer">
+                <div class="container">
+                    <p class="text-muted">Place sticky footer content here.</p>
+                </div>
+            </footer>
+            {% block javascripts %}{% endblock %}
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+            <script src="{{ asset('assets/vendor/tether/dist/js/tether.min.js') }}"></script>
+            <script src="{{ asset('assets/vendor/tether-drop/dist/js/drop.min.js') }}"></script>
+            <script src="{{ asset('assets/vendor/tether-tooltip/dist/js/tooltip.min.js') }}"></script>
+            <script src="{{ asset('assets/vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+        {% endblock %}
     </body>
 </html>
