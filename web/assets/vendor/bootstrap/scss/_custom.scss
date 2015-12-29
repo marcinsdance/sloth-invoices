@@ -1,3 +1,4 @@
+$header-height: 40px;
 $footer-height: 80px;
 
 html {
@@ -8,7 +9,10 @@ body {
     margin-bottom: $footer-height;
 }
 body > .container {
-    padding: $footer-height 15px 0;
+    padding: $header-height 15px $footer-height 0;
+}
+.header {
+    padding-bottom: 40px;
 }
 .footer {
     position: absolute;
@@ -16,12 +20,4 @@ body > .container {
     width: 100%;
     height: $footer-height;
     background-color: #f5f5f5;
-}
-ul.nav li.dropdown:hover > ul.dropdown-menu {
-    display: block;
-}
-@media (min-width: 979px) {
-    ul.nav li.dropdown:hover > ul.dropdown-menu {
-        display: block;
-    }
 }

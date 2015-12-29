@@ -15,16 +15,46 @@ class ClientType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('company_name')
-            ->add('contact_name', 'text', array('required' => false))
-            ->add('address','textarea', array('required' => false))
-            ->add('telephone1', 'text', array('required' => false))
-            ->add('telephone2', 'text', array('required' => false))
-            ->add('email1', 'text', array('required' => false))
-            ->add('email2', 'text', array('required' => false))
-            ->add('language','locale')
-            ->add('currency','currency')
-            ->add('save', 'submit', array('label' => 'Submit New Client'))
+            ->add('company_name', null, array(
+                'attr' => array('class'=>'form-control'),
+                'label_attr' => array('class'=>'form-control-label'
+                )))
+            ->add('contact_name', null, array(
+                'attr' => array('class'=>'form-control'),
+                'label_attr' => array('class'=>'form-control-label')
+            ))
+            ->add('address','textarea', array(
+                'attr' => array('class'=>'form-control'),
+                'label_attr' => array('class'=>'form-control-label'
+                )))
+            ->add('telephone1', null, array(
+                'attr' => array('class'=>'form-control'),
+                'label_attr' => array('class'=>'form-control-label'
+                )))
+            ->add('telephone2', null, array(
+                'attr' => array('class'=>'form-control'),
+                'label_attr' => array('class'=>'form-control-label'
+                )))
+            ->add('email1', null, array(
+                'attr' => array('class'=>'form-control'),
+                'label_attr' => array('class'=>'form-control-label'
+                )))
+            ->add('email2', null, array(
+                'attr' => array('class'=>'form-control'),
+                'label_attr' => array('class'=>'form-control-label'
+                )))
+            ->add('language','locale', array(
+                'attr' => array('class'=>'form-control'),
+                'label_attr' => array('class'=>'form-control-label'
+                )))
+            ->add('currency','currency', array(
+                'attr' => array('class'=>'form-control'),
+                'label_attr' => array('class'=>'form-control-label'
+                )))
+            ->add('save', 'submit', array(
+                'label' => 'Submit',
+                'attr' => array('class' => 'btn btn-primary')
+            ))
             ->getForm();
     }
 

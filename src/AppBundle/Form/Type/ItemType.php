@@ -16,10 +16,22 @@ class ItemType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('qty')
-            ->add('value')
-            ->add('description')
-            ->add('save', 'submit', array('label' => 'Submit New Item'))
+            ->add('qty', null, array(
+                'attr' => array('class'=>'form-control'),
+                'label_attr' => array('class'=>'form-control-label'
+                )))
+            ->add('value', null, array(
+                'attr' => array('class'=>'form-control'),
+                'label_attr' => array('class'=>'form-control-label'
+                )))
+            ->add('description', null, array(
+                'attr' => array('class'=>'form-control'),
+                'label_attr' => array('class'=>'form-control-label'
+                )))
+            ->add('save', 'submit', array(
+                'label' => 'Submit',
+                'attr' => array('class' => 'btn btn-primary')
+            ))
             ->getForm();
     }
 

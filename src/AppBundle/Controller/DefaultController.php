@@ -126,6 +126,20 @@ class DefaultController extends Controller
     }
 
     /**
+     * @Route("/clients", name="clients")
+     */
+    public function clientsAction(Request $request)
+    {
+        $clients = $this->getDoctrine()
+            ->getRepository('AppBundle:Client')
+            ->findAll();
+
+        return $this->render('default/clients.html.twig', array(
+            'clients' => $clients
+        ));
+    }
+
+    /**
      * @Route("/invoice/id/{id}", name="invoice")
      */
     public function invoiceAction(Request $request, $id)

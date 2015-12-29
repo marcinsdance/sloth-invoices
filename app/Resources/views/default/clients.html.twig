@@ -1,0 +1,38 @@
+{% extends "base.html.twig" %}
+{% block content %}
+    <h1>Clients</h1>
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Company Name</th>
+                <th>Contact Name</th>
+                <th>Address</th>
+                <th>Telephone 1</th>
+                <th>Telephone 2</th>
+                <th>Email 1</th>
+                <th>Email 2</th>
+                <th>Language</th>
+                <th>Currency</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for client in clients %}
+                <tr>
+                    <td>{{ client.id }}</td>
+                    <td>{{ client.companyName }}</td>
+                    <td>{{ client.contactName }}</td>
+                    <td>{{ client.address }}</td>
+                    <td>{{ client.telephone1 }}</td>
+                    <td>{{ client.telephone2 }}</td>
+                    <td>{{ client.email1 }}</td>
+                    <td>{{ client.email2 }}</td>
+                    <td>{{ client.language }}</td>
+                    <td>{{ client.currency }}</td>
+                    <td><a href="client/id/{{ client.id }}">Edit</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+</table>
+{% endblock %}

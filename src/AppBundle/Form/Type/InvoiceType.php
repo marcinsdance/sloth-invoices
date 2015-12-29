@@ -15,10 +15,25 @@ class InvoiceType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('number')
-            ->add('date', null, array('widget' => 'single_text'))
-            ->add('client', null, ['property' => 'company_name'])
-            ->add('save', 'submit', array('label' => 'Submit New Invoice'))
+            ->add('number', null, array(
+                'attr' => array('class'=>'form-control'),
+                'label_attr' => array('class'=>'form-control-label'
+                )))
+            ->add('date', null, array(
+                'widget' => 'single_text',
+                'attr' => array('class'=>'form-control datepicker'),
+                'label_attr' => array('class'=>'form-control-label')
+            ))
+            ->add('client', null, array(
+                'property' => 'company_name',
+                'attr' => array('class'=>'form-control'),
+                'label_attr' => array('class'=>'form-control-label'),
+                'placeholder' => '- Choose Client -'
+            ))
+            ->add('save', 'submit', array(
+                'label' => 'Submit',
+                'attr' => array('class' => 'btn btn-primary')
+            ))
             ->getForm();
     }
 

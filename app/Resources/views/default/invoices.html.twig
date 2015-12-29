@@ -1,15 +1,26 @@
 {% extends "base.html.twig" %}
 {% block content %}
-<table class="flash-error">
-    <tr><td>Id</td><td>Client</td><td>Number</td><td>Date</td><td>&nbsp;</td></tr>
-    {% for invoice in invoices %}
-        <tr>
-            <td>{{ invoice.id }}</td>
-            <td>{{ invoice.client }}</td>
-            <td>{{ invoice.number }}</td>
-            <td>{{ invoice.date|date('Y-m-d') }}</td>
-            <td><a href="invoice/id/{{ invoice.id }}">Edit</a></td>
-        </tr>
-    {% endfor %}
+    <h1>Invoices</h1>
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Client</th>
+                <th>Number</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for invoice in invoices %}
+                <tr>
+                    <td>{{ invoice.id }}</td>
+                    <td>{{ invoice.client }}</td>
+                    <td>{{ invoice.number }}</td>
+                    <td>{{ invoice.date|date('Y-m-d') }}</td>
+                    <td><a href="invoice/id/{{ invoice.id }}">Edit</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
 </table>
 {% endblock %}
