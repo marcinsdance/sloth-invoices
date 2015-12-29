@@ -26,6 +26,7 @@ class Builder implements ContainerAwareInterface
             ->setLabelAttribute('class','dropdown-toggle')
             ->setLabelAttribute('data-toggle','dropdown')
             ->setChildrenAttribute('class','dropdown-menu');
+        $menu['Invoices']->addChild('All Invoices', array('route' => 'invoices'));
         $menu['Invoices']->addChild('New Invoice', array('route' => 'new-invoice'));
         $menu['Clients']->addChild('New Client', array('route' => 'new-client'));
         $menu['Home']->setLinkAttribute('class', 'nav-item');

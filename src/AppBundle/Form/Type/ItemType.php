@@ -16,7 +16,6 @@ class ItemType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('invoice', 'hidden', array('data' => $options['invoice']))
             ->add('qty')
             ->add('value')
             ->add('description')

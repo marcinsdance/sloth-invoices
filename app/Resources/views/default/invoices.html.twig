@@ -8,7 +8,7 @@
             <td>{{ invoice.client }}</td>
             <td>{{ invoice.number }}</td>
             <td>{{ invoice.date|date('Y-m-d') }}</td>
-            <td><a href="invoice/edit/{{ invoice.id }}">Edit</a></td>
+            <td><a href="invoice/id/{{ invoice.id }}">Edit</a></td>
         </tr>
     {% endfor %}
 </table>

@@ -88,7 +88,10 @@ class DefaultController extends Controller
     public function newItemAction(Request $request, $invoice)
     {
         $item = new Item();
-        $item->setInvoice($invoice);
+        $invoiceObject = $this->getDoctrine()
+            ->getRepository('AppBundle:Invoice')
+            ->find($invoice);
+        $item->setInvoice($invoiceObject);
         $form = $this->createForm($this->get('form_item_type'), $item);
 
         $form->handleRequest($request);
@@ -119,6 +122,26 @@ class DefaultController extends Controller
 
         return $this->render('default/invoices.html.twig', array(
             'invoices' => $invoices
+        ));
+    }
+
+    /**
+     * @Route("/invoice/id/{id}", name="invoice")
+     */
+    public function invoiceAction(Request $request, $id)
+    {
+        $invoice = $this->getDoctrine()
+            ->getRepository('AppBundle:Invoice')
+            ->find($id);
+        $items = $this->getDoctrine()
+            ->getRepository('AppBundle:Item')
+            ->findBy(
+                array('invoice' => $id)
+            );
+
+        return $this->render('default/invoice.html.twig', array(
+            'invoice' => $invoice,
+            'items' => $items
         ));
     }
 

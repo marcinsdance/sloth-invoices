@@ -17,3 +17,11 @@ body > .container {
     height: $footer-height;
     background-color: #f5f5f5;
 }
+ul.nav li.dropdown:hover > ul.dropdown-menu {
+    display: block;
+}
+@media (min-width: 979px) {
+    ul.nav li.dropdown:hover > ul.dropdown-menu {
+        display: block;
+    }
+}

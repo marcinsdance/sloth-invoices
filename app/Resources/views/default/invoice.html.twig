@@ -1,0 +1,17 @@
+{% extends "base.html.twig" %}
+{% block content %}
+<table class="flash-error">
+    <tr><td>Id</td><td>Qty</td><td>Value</td><td>Description</td><td>&nbsp;</td></tr>
+    {{ invoice.id }}
+    {% for item in items %}
+        <tr>
+            <td>{{ item.id }}</td>
+            <td>{{ item.qty }}</td>
+            <td>{{ item.value }}</td>
+            <td>{{ item.description }}</td>
+            <td><a href="item/edit/{{ item.id }}">Edit</a></td>
+        </tr>
+    {% endfor %}
+</table>
+    <a href="{{ path('new-item', {'invoice': invoice.id}) }}">Add new item</a>
+{% endblock %}
