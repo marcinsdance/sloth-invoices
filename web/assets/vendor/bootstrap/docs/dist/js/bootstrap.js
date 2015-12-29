@@ -3559,4 +3559,12 @@ var Popover = (function ($) {
   return Popover;
 })(jQuery);
 
+var fnDatepicker = function fnDatepicker() {
+  $('.datepicker').datepicker();
+};
+
+(function ($) {
+  fnDatepicker;
+})(jQuery);
+
 }(jQuery);
