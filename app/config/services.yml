@@ -13,3 +13,5 @@ services:
         class: AppBundle\Form\Type\ClientType
     form_item_type:
         class: AppBundle\Form\Type\ItemType
+    form_profile_type:
+        class: AppBundle\Form\Type\ProfileType

@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,6 +14,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use AppBundle\Entity\Invoice;
 use AppBundle\Entity\Item;
 use AppBundle\Entity\Client;
+use AppBundle\Entity\Profile;
 use AppBundle\Form\Type\InvoiceType;
 
 class DefaultController extends Controller
@@ -115,7 +117,7 @@ class DefaultController extends Controller
     /**
      * @Route("/invoice/{invoice}/item/{itemId}", name="edit-item")
      */
-    public function editItemAction(Request $request, $invoice, $itemId)
+/*    public function editItemAction(Request $request, $invoice, $itemId)
     {
         $em = $this->getDoctrine()->getManager();
         $item = $em->getRepository('AppBundle:Item')->find($itemId);
@@ -153,10 +155,10 @@ class DefaultController extends Controller
         return $jsonResponse->setData(array(
             'message', 'Error, item has not been added: ' . $stringifyErrors
         ));
-    }
+    }*/
 
     /**
-     * @Route("/item/{itemId}/invoice/{invoice}", name="item-edit")
+     * @Route("/invoice/{invoice}/item/{itemId}", name="edit-item")
      */
     public function itemEditAction(Request $request, $invoice, $itemId)
     {
@@ -254,24 +256,26 @@ class DefaultController extends Controller
         );
     }
 
-    protected function getFormErrors($form)
+    /**
+     * @Route("/new-profile", name="new-profile")
+     * @param Request $request
+     * @return Response
+     */
+    public function newProfileAction(Request $request)
     {
-        $errors = array();
+        $profile = new Profile();
+        $form = $this->createForm('form_profile_type', $profile);
+        $form->handleRequest($request);
 
-        // Global
-        foreach ($form->getErrors() as $error) {
-            $errors[$form->getName()][] = $error->getMessage();
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($profile);
+            $em->flush();
+            $this->addFlash('success', 'Profile has been added.');
         }
 
-        // Fields
-        foreach ($form as $child /** @var Form $child */) {
-            if (!$child->isValid()) {
-                foreach ($child->getErrors() as $error) {
-                    $errors[$child->getName()][] = $error->getMessage();
-                }
-            }
-        }
-
-        return $errors;
+        return $this->render('default/new-form.html.twig', array(
+            'form' => $form->createView()
+        ));
     }
 }

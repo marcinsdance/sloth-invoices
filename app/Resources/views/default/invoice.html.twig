@@ -1,7 +1,15 @@
 {% extends "base.html.twig" %}
 {% block content %}
     <h1>Invoice ID #{{ invoice.id }}</h1>
-<table class="table table-striped table-bordered">
+    <a href="{{ path('invoices') }}">Go Back to All Invoices</a>
+    {% if items is empty %}
+        <div class="row">
+            <div class="col-sm-12">
+                There are no items yet. <a href="{{ path('new-item', {'invoice': invoice.id}) }}">Add new item</a>
+            </div>
+        </div>
+    {% else %}
+        <table class="table table-striped table-bordered">
     <thead>
         <tr>
             <th>Qty</th>
@@ -12,14 +20,15 @@
     </thead>
     <tbody>
     {% for item in items %}
-        <tr data-url="{{ path('item-edit', {'invoice': invoice.id, 'itemId': item.id}) }}">
+        <tr data-url="{#{{ path('item-edit', {'invoice': invoice.id, 'itemId': item.id}) }}#}">
             <td class="editable" data-update="qty">{{ item.qty }}</td>
             <td class="editable" data-update="value">{{ item.value }}</td>
             <td class="editable" data-update="description">{{ item.description }}</td>
-            <td><a class="editable">Edit</a></td>
+            <td><a href="{{ path('edit-item', {'invoice': invoice.id, 'itemId': item.id}) }}">Edit</a></td>
         </tr>
     {% endfor %}
     </tbody>
 </table>
     <a href="{{ path('new-item', {'invoice': invoice.id}) }}">Add new item</a>
+    {% endif %}
 {% endblock %}
