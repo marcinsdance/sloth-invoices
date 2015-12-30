@@ -16,6 +16,7 @@ use AppBundle\Entity\Item;
 use AppBundle\Entity\Client;
 use AppBundle\Entity\Profile;
 use AppBundle\Form\Type\InvoiceType;
+use AppBundle\Form\Type\ProfileType;
 
 class DefaultController extends Controller
 {
@@ -164,7 +165,7 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $item = $em->getRepository('AppBundle:Item')->find($itemId);
-        if (! $item) {
+        if (!$item) {
             throw $this->createNotFoundException('No item found for id ' . $itemId);
         }
         $invoiceObject = $this->getDoctrine()
@@ -183,11 +184,92 @@ class DefaultController extends Controller
                 'Item has been changed.'
             );
         }
+    }
 
-        return $this->render('default/edit-item.html.twig', array(
+    /**
+     * @Route("/profile/id/{id}", name="edit-profile")
+     */
+    public function itemProfileAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $profile = $em->getRepository('AppBundle:Profile')->find($id);
+        if (! $profile) {
+            throw $this->createNotFoundException('No profile found for id ' . $id);
+        }
+        $form = $this->createForm($this->get('form_profile_type'), $profile);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($profile);
+            $em->flush();
+            $this->addFlash(
+                'success',
+                'Profile has been changed.'
+            );
+        }
+
+        return $this->render('default/edit-profile.html.twig', array(
             'form' => $form->createView(),
-            'invoice' => $invoiceObject,
-            'item' => $item
+            'profile' => $profile
+        ));
+    }
+
+    /**
+     * @Route("/client/id/{id}", name="edit-client")
+     */
+    public function itemClientAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $client = $em->getRepository('AppBundle:Client')->find($id);
+        if (! $client) {
+            throw $this->createNotFoundException('No client found for id ' . $id);
+        }
+        $form = $this->createForm($this->get('form_client_type'), $client);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($client);
+            $em->flush();
+            $this->addFlash(
+                'success',
+                'Client has been changed.'
+            );
+        }
+
+        return $this->render('default/edit-client.html.twig', array(
+            'form' => $form->createView(),
+            'client' => $client
+        ));
+    }
+
+    /**
+     * @Route("/invoice/id/{id}", name="edit-invoice")
+     */
+    public function itemInvoiceAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $invoice = $em->getRepository('AppBundle:Invoice')->find($id);
+        if (! $invoice) {
+            throw $this->createNotFoundException('No invoice found for id ' . $id);
+        }
+        $form = $this->createForm($this->get('form_invoice_type'), $invoice);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($invoice);
+            $em->flush();
+            $this->addFlash(
+                'success',
+                'Invoice has been changed.'
+            );
+        }
+
+        return $this->render('default/edit-invoice.html.twig', array(
+            'form' => $form->createView(),
+            'invoice' => $invoice
         ));
     }
 
@@ -220,7 +302,21 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/invoice/id/{id}", name="invoice")
+     * @Route("/profiles", name="profiles")
+     */
+    public function profilesAction(Request $request)
+    {
+        $profiles = $this->getDoctrine()
+            ->getRepository('AppBundle:Profile')
+            ->findAll();
+
+        return $this->render('default/profiles.html.twig', array(
+            'profiles' => $profiles
+        ));
+    }
+
+    /**
+     * @Route("/invoice/id/{id}/items", name="invoice")
      */
     public function invoiceAction(Request $request, $id)
     {
@@ -264,7 +360,7 @@ class DefaultController extends Controller
     public function newProfileAction(Request $request)
     {
         $profile = new Profile();
-        $form = $this->createForm('form_profile_type', $profile);
+        $form = $this->createForm($this->get('form_profile_type'), $profile);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -274,7 +370,7 @@ class DefaultController extends Controller
             $this->addFlash('success', 'Profile has been added.');
         }
 
-        return $this->render('default/new-form.html.twig', array(
+        return $this->render('default/new-profile.html.twig', array(
             'form' => $form->createView()
         ));
     }

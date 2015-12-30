@@ -10,7 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ClientType extends AbstractType
+class ProfileType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -66,7 +66,7 @@ class ClientType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Client'
+            'data_class' => 'AppBundle\Entity\Profile'
         ));
     }
 
@@ -78,6 +78,6 @@ class ClientType extends AbstractType
     public function getName()
     {
         // TODO: Implement getName() method.
-        return 'ClientType';
+        return 'ProfileType';
     }
 }

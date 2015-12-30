@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Class Profile
  * @package AppBundle\Entity
  * @ORM\Entity
- * @ORM|HasLifecycleCallbacks
+ * @ORM\HasLifecycleCallbacks
  * @ORM\Table(name="profile")
  */
 class Profile
@@ -29,12 +29,12 @@ class Profile
     protected $company_name;
 
     /**
-     * @ORM|Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     protected $logo_path;
 
     /**
-     * @Assert|File(maxSize="6000000")
+     * @Assert\File(maxSize="6000000")
      */
     private $file;
 
@@ -74,17 +74,17 @@ class Profile
     protected $email;
 
     /**
-     * @ORM|Column(type="string", nullable=TRUE, length=50)
+     * @ORM\Column(type="string", nullable=TRUE, length=50)
      */
     protected $bank_account;
 
     /**
-     * @ORM|Column(type="string", nullable=TRUE, length=20)
+     * @ORM\Column(type="string", nullable=TRUE, length=20)
      */
     protected $sort_code;
 
     /**
-     * @ORM|Column(type="string", nullable=TRUE, length=100)
+     * @ORM\Column(type="string", nullable=TRUE, length=100)
      */
     protected $bank_name;
 
@@ -109,7 +109,7 @@ class Profile
     {
         // the absolute directory path where uploaded
         // documents should be saved
-        return __DIR__.'/../../../../web/'.$this->getUploadDir();
+        return __DIR__.'/../../web/'.$this->getUploadDir();
     }
 
     protected function getUploadDir()
@@ -147,8 +147,8 @@ class Profile
     }
 
     /**
-     * @ORM|PrePersist()
-     * @ORM|PreUpdate()
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
      */
     public function preUpload()
     {
@@ -159,8 +159,8 @@ class Profile
     }
 
     /**
-     * @ORM|PostPersist()
-     * @ORM|PostUpdate()
+     * @ORM\PostPersist()
+     * @ORM\PostUpdate()
      */
     public function upload()
     {
@@ -181,7 +181,7 @@ class Profile
     }
 
     /**
-     * @ORM|PostRemove()
+     * @ORM\PostRemove()
      */
     public function removeUpload()
     {
@@ -189,5 +189,303 @@ class Profile
         if ($file) {
             unlink($file);
         }
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set companyName
+     *
+     * @param string $companyName
+     *
+     * @return Profile
+     */
+    public function setCompanyName($companyName)
+    {
+        $this->company_name = $companyName;
+
+        return $this;
+    }
+
+    /**
+     * Get companyName
+     *
+     * @return string
+     */
+    public function getCompanyName()
+    {
+        return $this->company_name;
+    }
+
+    /**
+     * Set logoPath
+     *
+     * @param string $logoPath
+     *
+     * @return Profile
+     */
+    public function setLogoPath($logoPath)
+    {
+        $this->logo_path = $logoPath;
+
+        return $this;
+    }
+
+    /**
+     * Get logoPath
+     *
+     * @return string
+     */
+    public function getLogoPath()
+    {
+        return $this->logo_path;
+    }
+
+    /**
+     * Set companyRegistrationNumber
+     *
+     * @param string $companyRegistrationNumber
+     *
+     * @return Profile
+     */
+    public function setCompanyRegistrationNumber($companyRegistrationNumber)
+    {
+        $this->company_registration_number = $companyRegistrationNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get companyRegistrationNumber
+     *
+     * @return string
+     */
+    public function getCompanyRegistrationNumber()
+    {
+        return $this->company_registration_number;
+    }
+
+    /**
+     * Set slogan
+     *
+     * @param string $slogan
+     *
+     * @return Profile
+     */
+    public function setSlogan($slogan)
+    {
+        $this->slogan = $slogan;
+
+        return $this;
+    }
+
+    /**
+     * Get slogan
+     *
+     * @return string
+     */
+    public function getSlogan()
+    {
+        return $this->slogan;
+    }
+
+    /**
+     * Set footerNote
+     *
+     * @param string $footerNote
+     *
+     * @return Profile
+     */
+    public function setFooterNote($footerNote)
+    {
+        $this->footer_note = $footerNote;
+
+        return $this;
+    }
+
+    /**
+     * Get footerNote
+     *
+     * @return string
+     */
+    public function getFooterNote()
+    {
+        return $this->footer_note;
+    }
+
+    /**
+     * Set contactName
+     *
+     * @param string $contactName
+     *
+     * @return Profile
+     */
+    public function setContactName($contactName)
+    {
+        $this->contact_name = $contactName;
+
+        return $this;
+    }
+
+    /**
+     * Get contactName
+     *
+     * @return string
+     */
+    public function getContactName()
+    {
+        return $this->contact_name;
+    }
+
+    /**
+     * Set address
+     *
+     * @param string $address
+     *
+     * @return Profile
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    /**
+     * Get address
+     *
+     * @return string
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     * Set telephone
+     *
+     * @param string $telephone
+     *
+     * @return Profile
+     */
+    public function setTelephone($telephone)
+    {
+        $this->telephone = $telephone;
+
+        return $this;
+    }
+
+    /**
+     * Get telephone
+     *
+     * @return string
+     */
+    public function getTelephone()
+    {
+        return $this->telephone;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     *
+     * @return Profile
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Set bankAccount
+     *
+     * @param string $bankAccount
+     *
+     * @return Profile
+     */
+    public function setBankAccount($bankAccount)
+    {
+        $this->bank_account = $bankAccount;
+
+        return $this;
+    }
+
+    /**
+     * Get bankAccount
+     *
+     * @return string
+     */
+    public function getBankAccount()
+    {
+        return $this->bank_account;
+    }
+
+    /**
+     * Set sortCode
+     *
+     * @param string $sortCode
+     *
+     * @return Profile
+     */
+    public function setSortCode($sortCode)
+    {
+        $this->sort_code = $sortCode;
+
+        return $this;
+    }
+
+    /**
+     * Get sortCode
+     *
+     * @return string
+     */
+    public function getSortCode()
+    {
+        return $this->sort_code;
+    }
+
+    /**
+     * Set bankName
+     *
+     * @param string $bankName
+     *
+     * @return Profile
+     */
+    public function setBankName($bankName)
+    {
+        $this->bank_name = $bankName;
+
+        return $this;
+    }
+
+    /**
+     * Get bankName
+     *
+     * @return string
+     */
+    public function getBankName()
+    {
+        return $this->bank_name;
     }
 }
