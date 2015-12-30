@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use AppBundle\Entity\Invoice;
 use AppBundle\Entity\Item;
 use AppBundle\Entity\Client;
@@ -112,6 +113,83 @@ class DefaultController extends Controller
     }
 
     /**
+     * @Route("/invoice/{invoice}/item/{itemId}", name="edit-item")
+     */
+    public function editItemAction(Request $request, $invoice, $itemId)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $item = $em->getRepository('AppBundle:Item')->find($itemId);
+        if (! $item) {
+            throw $this->createNotFoundException('No item found for id ' . $itemId);
+        }
+        $invoiceObject = $this->getDoctrine()
+            ->getRepository('AppBundle:Invoice')
+            ->find($invoice);
+        $item->setInvoice($invoiceObject);
+        $form = $this->createForm($this->get('form_item_type'), $item, array(
+            'method' => 'PUT'
+        ));
+        $form->handleRequest($request);
+
+        $jsonResponse = new JsonResponse();
+        if (!$form) {
+            return $jsonResponse->setData(array(
+                'message','false'
+            ));
+        }
+
+        if ($form->isSubmitted()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($item);
+            $em->flush();
+            return $jsonResponse->setData(array(
+                'message', 'Item has been added.'
+            ));
+        }
+
+        $errors = $this->getFormErrors($form);
+
+        $stringifyErrors = implode(',',$errors);
+        return $jsonResponse->setData(array(
+            'message', 'Error, item has not been added: ' . $stringifyErrors
+        ));
+    }
+
+    /**
+     * @Route("/item/{itemId}/invoice/{invoice}", name="item-edit")
+     */
+    public function itemEditAction(Request $request, $invoice, $itemId)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $item = $em->getRepository('AppBundle:Item')->find($itemId);
+        if (! $item) {
+            throw $this->createNotFoundException('No item found for id ' . $itemId);
+        }
+        $invoiceObject = $this->getDoctrine()
+            ->getRepository('AppBundle:Invoice')
+            ->find($invoice);
+        $item->setInvoice($invoiceObject);
+        $form = $this->createForm($this->get('form_item_type'), $item);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($item);
+            $em->flush();
+            $this->addFlash(
+                'success',
+                'Item has been changed.'
+            );
+        }
+
+        return $this->render('default/edit-item.html.twig', array(
+            'form' => $form->createView(),
+            'invoice' => $invoiceObject,
+            'item' => $item
+        ));
+    }
+
+    /**
      * @Route("/invoices", name="invoices")
      */
     public function invoicesAction(Request $request)
@@ -174,5 +252,26 @@ class DefaultController extends Controller
                 'Content-Disposition'   => 'attachment; filename="file.pdf"'
             )
         );
+    }
+
+    protected function getFormErrors($form)
+    {
+        $errors = array();
+
+        // Global
+        foreach ($form->getErrors() as $error) {
+            $errors[$form->getName()][] = $error->getMessage();
+        }
+
+        // Fields
+        foreach ($form as $child /** @var Form $child */) {
+            if (!$child->isValid()) {
+                foreach ($child->getErrors() as $error) {
+                    $errors[$child->getName()][] = $error->getMessage();
+                }
+            }
+        }
+
+        return $errors;
     }
 }

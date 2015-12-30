@@ -24,10 +24,18 @@ class Builder implements ContainerAwareInterface
             ->setLabelAttribute('class','dropdown-toggle')
             ->setLabelAttribute('data-toggle','dropdown')
             ->setChildrenAttribute('class','dropdown-menu');
-        $menu['Invoices']->addChild('All Invoices', array('route' => 'invoices'));
-        $menu['Invoices']->addChild('New Invoice', array('route' => 'new-invoice'));
-        $menu['Clients']->addChild('All Clients', array('route' => 'clients'));
-        $menu['Clients']->addChild('New Client', array('route' => 'new-client'));
+        $menu['Invoices']->addChild('All Invoices', array('route' => 'invoices'))
+            ->setAttribute('class','dropdown-item')
+            ->setLinkAttribute('class','nav-link');
+        $menu['Invoices']->addChild('New Invoice', array('route' => 'new-invoice'))
+            ->setAttribute('class','dropdown-item')
+            ->setLinkAttribute('class','nav-link');
+        $menu['Clients']->addChild('All Clients', array('route' => 'clients'))
+            ->setAttribute('class','dropdown-item')
+            ->setLinkAttribute('class','nav-link');
+        $menu['Clients']->addChild('New Client', array('route' => 'new-client'))
+            ->setAttribute('class','dropdown-item')
+            ->setLinkAttribute('class','nav-link');
         return $menu;
     }
 }
