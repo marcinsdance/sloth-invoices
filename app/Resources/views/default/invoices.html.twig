@@ -1,26 +1,38 @@
 {% extends "base.html.twig" %}
 {% block content %}
     <h1>Invoices</h1>
-    <table class="table table-striped table-bordered">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Client</th>
-                <th>Number</th>
-                <th>Date</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for invoice in invoices %}
+    {% if invoices is empty %}
+        <div class="row">
+            <div class="col-sm-12">
+                There are no invoices yet. <a href="{{ path('new-invoice') }}">Add new invoice</a>
+            </div>
+        </div>
+    {% else %}
+        <table class="table table-striped table-bordered">
+            <thead>
                 <tr>
-                    <td>{{ invoice.id }}</td>
-                    <td>{{ invoice.client }}</td>
-                    <td>{{ invoice.number }}</td>
-                    <td>{{ invoice.date|date('Y-m-d') }}</td>
-                    <td><a href="invoice/id/{{ invoice.id }}">Edit invoice</a> | <a href="invoice/id/{{ invoice.id }}/items">Edit items</a></td>
+                    <th>Id</th>
+                    <th>Client</th>
+                    <th>Number</th>
+                    <th>Date</th>
+                    <th>Actions</th>
                 </tr>
-            {% endfor %}
-        </tbody>
-</table>
+            </thead>
+            <tbody>
+                {% for invoice in invoices %}
+                    <tr>
+                        <td>{{ invoice.id }}</td>
+                        <td>{{ invoice.client }}</td>
+                        <td>{{ invoice.number }}</td>
+                        <td>{{ invoice.date|date('Y-m-d') }}</td>
+                        <td><a href="invoice/edit/{{ invoice.id }}">Edit</a> |
+                            <a href="invoice/id/{{ invoice.id }}/items">Items</a> |
+                            <a href="invoice/delete/{{ invoice.id }}">Delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{{ path('new-invoice') }}">Add new invoice</a>
+    {% endif %}
 {% endblock %}

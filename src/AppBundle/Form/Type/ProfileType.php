@@ -15,6 +15,10 @@ class ProfileType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('name', null, array(
+                'attr' => array('class'=>'form-control'),
+                'label_attr' => array('class'=>'form-control-label'
+                )))
             ->add('company_name', null, array(
                 'attr' => array('class'=>'form-control'),
                 'label_attr' => array('class'=>'form-control-label'
@@ -49,6 +53,10 @@ class ProfileType extends AbstractType
                 'label_attr' => array('class'=>'form-control-label'
                 )))
             ->add('bank_account', null, array(
+                'attr' => array('class'=>'form-control'),
+                'label_attr' => array('class'=>'form-control-label'
+                )))
+            ->add('sort_code', null, array(
                 'attr' => array('class'=>'form-control'),
                 'label_attr' => array('class'=>'form-control-label'
                 )))

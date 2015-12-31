@@ -13,22 +13,24 @@
     <thead>
         <tr>
             <th>Qty</th>
-            <th>Value</th>
             <th>Description</th>
-            <th>&nbsp;</th>
+            <th>Value</th>
+            <th>Total</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
     {% for item in items %}
         <tr data-url="{#{{ path('item-edit', {'invoice': invoice.id, 'itemId': item.id}) }}#}">
             <td class="editable" data-update="qty">{{ item.qty }}</td>
-            <td class="editable" data-update="value">{{ item.value }}</td>
             <td class="editable" data-update="description">{{ item.description }}</td>
-            <td><a href="{{ path('edit-item', {'invoice': invoice.id, 'itemId': item.id}) }}">Edit</a></td>
+            <td class="editable" data-update="value">{{ item.value }}</td>
+            <td>{{ (item.qty * item.value) | number_format(2) }}</td>
+            <td><a href="{{ path('edit-item', {'invoice' : invoice.id, 'itemId' : item.id}) }}">Edit</a></td>
         </tr>
     {% endfor %}
     </tbody>
 </table>
-    <a href="{{ path('new-item', {'invoice': invoice.id}) }}">Add new item</a>
+    <a href="{{ path('new-item', {'invoice' : invoice.id}) }}">Add new item</a>
     {% endif %}
 {% endblock %}

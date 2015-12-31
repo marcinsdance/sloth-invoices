@@ -51,9 +51,7 @@ class DefaultController extends Controller
             );
         }
 
-        return $this->render('default/new-client.html.twig', array(
-            'form' => $form->createView()
-        ));
+        return $this->redirectToRoute('clients');
     }
 
     /**
@@ -187,7 +185,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/profile/id/{id}", name="edit-profile")
+     * @Route("/profile/edit/{id}", name="edit-profile")
      */
     public function itemProfileAction(Request $request, $id)
     {
@@ -245,9 +243,9 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/invoice/id/{id}", name="edit-invoice")
+     * @Route("/invoice/edit/{id}", name="edit-invoice")
      */
-    public function itemInvoiceAction(Request $request, $id)
+    public function invoiceAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
         $invoice = $em->getRepository('AppBundle:Invoice')->find($id);
@@ -271,6 +269,72 @@ class DefaultController extends Controller
             'form' => $form->createView(),
             'invoice' => $invoice
         ));
+    }
+
+    /**
+     * @Route("/invoice/delete/{id}", name="delete-invoice")
+     */
+    public function deleteInvoiceAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $invoice = $em->getRepository('AppBundle:Invoice')->find($id);
+        if (! $invoice) {
+            throw $this->createNotFoundException('No invoice found for id ' . $id);
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($invoice);
+        $em->flush();
+        $this->addFlash(
+            'success',
+            'Invoice has been Removed.'
+        );
+
+        return $this->redirectToRoute('invoices');
+    }
+
+    /**
+     * @Route("/profile/delete/{id}", name="delete-profile")
+     */
+    public function deleteProfileAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $profile = $em->getRepository('AppBundle:Profile')->find($id);
+        if (! $profile) {
+            throw $this->createNotFoundException('No profile found for id ' . $id);
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($profile);
+        $em->flush();
+        $this->addFlash(
+            'success',
+            'Profile has been Removed.'
+        );
+
+        return $this->redirectToRoute('profiles');
+    }
+
+    /**
+     * @Route("/client/delete/{id}", name="delete-client")
+     */
+    public function deleteClientAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $client = $em->getRepository('AppBundle:Client')->find($id);
+        if (! $client) {
+            throw $this->createNotFoundException('No client found for id ' . $id);
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($client);
+        $em->flush();
+        $this->addFlash(
+            'success',
+            'Client has been Removed.'
+        );
+
+        return $this->redirectToRoute('clients');
     }
 
     /**
@@ -318,11 +382,16 @@ class DefaultController extends Controller
     /**
      * @Route("/invoice/id/{id}/items", name="invoice")
      */
-    public function invoiceAction(Request $request, $id)
+    public function itemsAction(Request $request, $id)
     {
         $invoice = $this->getDoctrine()
             ->getRepository('AppBundle:Invoice')
             ->find($id);
+        $items = $this->getDoctrine()
+            ->getRepository('AppBundle:Item')
+            ->findBy(
+                array('invoice' => $id)
+            );
         $items = $this->getDoctrine()
             ->getRepository('AppBundle:Item')
             ->findBy(

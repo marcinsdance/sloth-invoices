@@ -1,38 +1,47 @@
 {% extends "base.html.twig" %}
 {% block content %}
     <h1>Clients</h1>
-    <table class="table table-striped table-bordered">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Company Name</th>
-                <th>Contact Name</th>
-                <th>Address</th>
-                <th>Telephone 1</th>
-                <th>Telephone 2</th>
-                <th>Email 1</th>
-                <th>Email 2</th>
-                <th>Language</th>
-                <th>Currency</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for client in clients %}
+    {% if clients is empty %}
+        <div class="row">
+            <div class="col-sm-12">
+                There are no clients yet. <a href="{{ path('new-client') }}">Add new client</a>
+            </div>
+        </div>
+    {% else %}
+        <table class="table table-striped table-bordered">
+            <thead>
                 <tr>
-                    <td>{{ client.id }}</td>
-                    <td>{{ client.companyName }}</td>
-                    <td>{{ client.contactName }}</td>
-                    <td>{{ client.address }}</td>
-                    <td>{{ client.telephone1 }}</td>
-                    <td>{{ client.telephone2 }}</td>
-                    <td>{{ client.email1 }}</td>
-                    <td>{{ client.email2 }}</td>
-                    <td>{{ client.language }}</td>
-                    <td>{{ client.currency }}</td>
-                    <td><a href="client/id/{{ client.id }}">Edit</a></td>
+                    <th>Id</th>
+                    <th>Company Name</th>
+                    <th>Contact Name</th>
+                    <th>Address</th>
+                    <th>Telephone 1</th>
+                    <th>Telephone 2</th>
+                    <th>Email 1</th>
+                    <th>Email 2</th>
+                    <th>Language</th>
+                    <th>Currency</th>
+                    <th>Actions</th>
                 </tr>
-            {% endfor %}
-        </tbody>
-</table>
+            </thead>
+            <tbody>
+                {% for client in clients %}
+                    <tr>
+                        <td>{{ client.id }}</td>
+                        <td>{{ client.companyName }}</td>
+                        <td>{{ client.contactName }}</td>
+                        <td>{{ client.address }}</td>
+                        <td>{{ client.telephone1 }}</td>
+                        <td>{{ client.telephone2 }}</td>
+                        <td>{{ client.email1 }}</td>
+                        <td>{{ client.email2 }}</td>
+                        <td>{{ client.language }}</td>
+                        <td>{{ client.currency }}</td>
+                        <td><a href="client/id/{{ client.id }}">Edit</a> | <a href="{{ path('delete-client',{ 'id' : client.id }) }}">Delete</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{{ path('new-client') }}">Add new client</a>
+    {% endif %}
 {% endblock %}

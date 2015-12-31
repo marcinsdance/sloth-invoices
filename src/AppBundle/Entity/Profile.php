@@ -26,6 +26,11 @@ class Profile
     /**
      * @ORM\Column(type="string", length=100)
      */
+    protected $name;
+
+    /**
+     * @ORM\Column(type="string", length=100)
+     */
     protected $company_name;
 
     /**
@@ -487,5 +492,29 @@ class Profile
     public function getBankName()
     {
         return $this->bank_name;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return Profile
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 }
