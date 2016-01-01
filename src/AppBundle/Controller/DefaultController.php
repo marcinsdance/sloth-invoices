@@ -392,15 +392,42 @@ class DefaultController extends Controller
             ->findBy(
                 array('invoice' => $id)
             );
+        $client = $this->getDoctrine()
+            ->getRepository('AppBundle:Client')
+            ->findBy(
+                array('id' => $invoice->getClient())
+            );
+
+        return $this->render('default/items.html.twig', array(
+            'invoice' => $invoice,
+            'items' => $items,
+            'client' => $client[0]
+        ));
+    }
+
+    /**
+     * @Route("/invoice/preview/{id}", name="invoice")
+     */
+    public function previewAction(Request $request, $id)
+    {
+        $invoice = $this->getDoctrine()
+            ->getRepository('AppBundle:Invoice')
+            ->find($id);
         $items = $this->getDoctrine()
             ->getRepository('AppBundle:Item')
             ->findBy(
                 array('invoice' => $id)
             );
+        $client = $this->getDoctrine()
+            ->getRepository('AppBundle:Client')
+            ->findBy(
+                array('id' => $invoice->getClient())
+            );
 
-        return $this->render('default/invoice.html.twig', array(
+        return $this->render('default/preview.html.twig', array(
             'invoice' => $invoice,
-            'items' => $items
+            'items' => $items,
+            'client' => $client[0]
         ));
     }
 
