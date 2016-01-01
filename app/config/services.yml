@@ -15,3 +15,7 @@ services:
         class: AppBundle\Form\Type\ItemType
     form_profile_type:
         class: AppBundle\Form\Type\ProfileType
+    voicein.twig.currency:
+        class: AppBundle\Twig\Currency
+        tags:
+            - { name: twig.extension}
