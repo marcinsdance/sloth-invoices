@@ -31,6 +31,12 @@ class Invoice
     protected $client;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Profile", inversedBy="profile")
+     * @ORM\JoinColumn(name="profile_id", referencedColumnName="id")
+     */
+    protected $profile;
+
+    /**
      * @ORM\Column(type="datetime")
      */
     protected $date;
@@ -115,5 +121,29 @@ class Invoice
     public function getClient()
     {
         return $this->client;
+    }
+
+    /**
+     * Set profile
+     *
+     * @param \AppBundle\Entity\Profile $profile
+     *
+     * @return Invoice
+     */
+    public function setProfile(\AppBundle\Entity\Profile $profile = null)
+    {
+        $this->profile = $profile;
+
+        return $this;
+    }
+
+    /**
+     * Get profile
+     *
+     * @return \AppBundle\Entity\Profile
+     */
+    public function getProfile()
+    {
+        return $this->profile;
     }
 }

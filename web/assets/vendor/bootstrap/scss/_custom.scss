@@ -21,3 +21,15 @@ body > .container {
     height: $footer-height;
     background-color: #f5f5f5;
 }
+
+// PDF styling
+.container {
+    &.logo {
+        img {
+            max-width: 100%;
+        }
+    }
+}
+.pdf-bottom-row {
+    text-align: center;
+}

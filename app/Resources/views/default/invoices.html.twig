@@ -27,7 +27,9 @@
                         <td>{{ invoice.date|date('Y-m-d') }}</td>
                         <td><a href="invoice/edit/{{ invoice.id }}">Edit</a> |
                             <a href="invoice/id/{{ invoice.id }}/items">Items</a> |
-                            <a href="invoice/delete/{{ invoice.id }}">Delete</a>
+                            <a href="invoice/delete/{{ invoice.id }}">Delete</a> |
+                            <a href="invoice/preview/{{ invoice.id }}">Preview</a> |
+                            <a href="invoice/pdf/{{ invoice.id }}">Pdf</a>
                         </td>
                     </tr>
                 {% endfor %}

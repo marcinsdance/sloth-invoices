@@ -8783,4 +8783,12 @@ body > .container {
   height: 80px;
   background-color: #f5f5f5;
 }
+
+.container.logo img {
+  max-width: 100%;
+}
+
+.pdf-bottom-row {
+  text-align: center;
+}
 /*# sourceMappingURL=bootstrap.css.map */

@@ -406,7 +406,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/invoice/preview/{id}", name="invoice")
+     * @Route("/invoice/preview/{id}", name="preview")
      */
     public function previewAction(Request $request, $id)
     {
@@ -423,20 +423,26 @@ class DefaultController extends Controller
             ->findBy(
                 array('id' => $invoice->getClient())
             );
+        $profile = $this->getDoctrine()
+            ->getRepository('AppBundle:Profile')
+            ->findBy(
+                array('id' => $invoice->getProfile())
+            );
 
         return $this->render('default/preview.html.twig', array(
             'invoice' => $invoice,
             'items' => $items,
-            'client' => $client[0]
+            'client' => $client[0],
+            'profile' => $profile[0]
         ));
     }
 
     /**
-     * @Route("/pdf", name="pdf")
+     * @Route("/invoice/pdf/{id}", name="pdf")
      */
-    public function pdfAction(Request $request)
+    public function pdfAction(Request $request, $id)
     {
-        $pageUrl = $this->generateUrl('invoices', array(), true); // use absolute path!
+        $pageUrl = $this->generateUrl('preview', array('id' => $id), true); // use absolute path!
 
         return new Response(
             $this->get('knp_snappy.pdf')->getOutput($pageUrl),

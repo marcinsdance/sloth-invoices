@@ -30,6 +30,12 @@ class InvoiceType extends AbstractType
                 'label_attr' => array('class'=>'form-control-label'),
                 'placeholder' => '- Choose Client -'
             ))
+            ->add('profile', null, array(
+                'property' => 'name',
+                'attr' => array('class'=>'form-control'),
+                'label_attr' => array('class'=>'form-control-label'),
+                'placeholder' => '- Choose Profile -'
+            ))
             ->add('save', 'submit', array(
                 'label' => 'Submit',
                 'attr' => array('class' => 'btn btn-primary')
