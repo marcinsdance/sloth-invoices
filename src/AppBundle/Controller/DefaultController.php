@@ -17,6 +17,7 @@ use AppBundle\Entity\Client;
 use AppBundle\Entity\Profile;
 use AppBundle\Form\Type\InvoiceType;
 use AppBundle\Form\Type\ProfileType;
+use AppBundle\Form\RegistrationType;
 
 class DefaultController extends Controller
 {
