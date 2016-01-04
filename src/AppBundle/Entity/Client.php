@@ -20,6 +20,13 @@ class Client
     protected $id;
 
     /**
+     * @ORM\Column(type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="clients")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    protected $user;
+
+    /**
      * @ORM\Column(type="string", length=100)
      */
     protected $company_name;
@@ -294,5 +301,29 @@ class Client
     public function __toString()
     {
         return $this->company_name;
+    }
+
+    /**
+     * Set user
+     *
+     * @param integer $user
+     *
+     * @return Client
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return integer
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

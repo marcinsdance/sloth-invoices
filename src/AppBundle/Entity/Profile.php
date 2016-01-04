@@ -24,6 +24,13 @@ class Profile
     protected $id;
 
     /**
+     * @ORM\Column(type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="profiles")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    protected $user;
+
+    /**
      * @ORM\Column(type="string", length=100)
      */
     protected $name;
@@ -516,5 +523,29 @@ class Profile
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Set user
+     *
+     * @param integer $user
+     *
+     * @return Profile
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return integer
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }
