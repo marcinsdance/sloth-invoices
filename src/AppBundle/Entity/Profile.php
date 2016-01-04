@@ -28,7 +28,7 @@ class Profile
      * @ORM\ManyToOne(targetEntity="User", inversedBy="profiles")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
-    protected $user_id;
+    protected $user;
 
     /**
      * @ORM\Column(type="string", length=100)
@@ -528,11 +528,11 @@ class Profile
     /**
      * Set user
      *
-     * @param \AppBundle\Entity\User $user
+     * @param integer $user
      *
      * @return Profile
      */
-    public function setUser(\AppBundle\Entity\User $user = null)
+    public function setUser($user)
     {
         $this->user = $user;
 
@@ -542,34 +542,10 @@ class Profile
     /**
      * Get user
      *
-     * @return \AppBundle\Entity\User
+     * @return integer
      */
     public function getUser()
     {
         return $this->user;
-    }
-
-    /**
-     * Set userId
-     *
-     * @param integer $userId
-     *
-     * @return Profile
-     */
-    public function setUserId($userId)
-    {
-        $this->user_id = $userId;
-
-        return $this;
-    }
-
-    /**
-     * Get userId
-     *
-     * @return integer
-     */
-    public function getUserId()
-    {
-        return $this->user_id;
     }
 }

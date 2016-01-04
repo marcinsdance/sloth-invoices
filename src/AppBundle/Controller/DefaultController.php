@@ -32,11 +32,39 @@ class DefaultController extends Controller
     }
 
     /**
+     * @Route("/new-profile", name="new-profile")
+     * @param Request $request
+     * @return Response
+     */
+    public function newProfileAction(Request $request)
+    {
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        $profile = new Profile();
+        $profile->setUser($user->getId());
+        $form = $this->createForm($this->get('form_profile_type'), $profile);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($profile);
+            $em->flush();
+            $this->addFlash('success', 'Profile has been added.');
+            return $this->redirectToRoute('profiles');
+        }
+
+        return $this->render('default/new-profile.html.twig', array(
+            'form' => $form->createView()
+        ));
+    }
+
+    /**
      * @Route("/new-client", name="new-client")
      */
     public function newClientAction(Request $request)
     {
+        $user = $this->container->get('security.context')->getToken()->getUser();
         $client = new Client();
+        $client->setUser($user->getId());
         $form = $this->createForm($this->get('form_client_type'), $client);
 
         $form->handleRequest($request);
@@ -45,13 +73,13 @@ class DefaultController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($client);
             $em->flush();
-            $this->addFlash(
-                'success',
-                'Client has been added.'
-            );
+            $this->addFlash('success', 'Client has been added.');
+            return $this->redirectToRoute('clients');
         }
 
-        return $this->redirectToRoute('clients');
+        return $this->render('default/new-client.html.twig', array(
+            'form' => $form->createView()
+        ));
     }
 
     /**
@@ -452,30 +480,5 @@ class DefaultController extends Controller
                 'Content-Disposition'   => 'attachment; filename="file.pdf"'
             )
         );
-    }
-
-    /**
-     * @Route("/new-profile", name="new-profile")
-     * @param Request $request
-     * @return Response
-     */
-    public function newProfileAction(Request $request)
-    {
-        $user = $this->container->get('security.context')->getToken()->getUser();
-        $profile = new Profile();
-        $profile->setUser($user);
-        $form = $this->createForm($this->get('form_profile_type'), $profile);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($profile);
-            $em->flush();
-            $this->addFlash('success', 'Profile has been added.');
-        }
-
-        return $this->render('default/new-profile.html.twig', array(
-            'form' => $form->createView()
-        ));
     }
 }
