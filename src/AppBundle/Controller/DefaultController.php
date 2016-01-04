@@ -461,7 +461,9 @@ class DefaultController extends Controller
      */
     public function newProfileAction(Request $request)
     {
+        $user = $this->container->get('security.context')->getToken()->getUser();
         $profile = new Profile();
+        $profile->setUser($user);
         $form = $this->createForm($this->get('form_profile_type'), $profile);
         $form->handleRequest($request);
 
