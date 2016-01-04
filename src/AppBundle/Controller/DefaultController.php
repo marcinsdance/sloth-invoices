@@ -384,9 +384,12 @@ class DefaultController extends Controller
      */
     public function clientsAction(Request $request)
     {
+        $user = $this->container->get('security.context')->getToken()->getUser();
         $clients = $this->getDoctrine()
             ->getRepository('AppBundle:Client')
-            ->findAll();
+            ->findBy(
+                array('user' => $user)
+            );
 
         return $this->render('default/clients.html.twig', array(
             'clients' => $clients
@@ -398,9 +401,12 @@ class DefaultController extends Controller
      */
     public function profilesAction(Request $request)
     {
+        $user = $this->container->get('security.context')->getToken()->getUser();
         $profiles = $this->getDoctrine()
             ->getRepository('AppBundle:Profile')
-            ->findAll();
+            ->findBy(
+                array('user' => $user)
+            );
 
         return $this->render('default/profiles.html.twig', array(
             'profiles' => $profiles
