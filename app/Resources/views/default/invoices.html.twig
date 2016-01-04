@@ -1,7 +1,13 @@
 {% extends "base.html.twig" %}
 {% block content %}
     <h1>Invoices</h1>
-    {% if invoices is empty %}
+    {% if profiles is empty %}
+        <div class="row">
+            <div class="col-sm-12">
+                Please set up a profile first before you add an invoice. <a href="{{ path('new-profile') }}">Add profile</a>
+            </div>
+        </div>
+    {% elseif invoices is empty %}
         <div class="row">
             <div class="col-sm-12">
                 There are no invoices yet. <a href="{{ path('new-invoice') }}">Add new invoice</a>

@@ -384,12 +384,30 @@ class DefaultController extends Controller
      */
     public function invoicesAction(Request $request)
     {
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        $profiles = $this->getDoctrine()
+            ->getRepository('AppBundle:Profile')
+            ->findBy(
+                array('user' => $user)
+            );
+        $profileIds = array();
+        foreach($profiles as $profile) {
+            array_push($profileIds, $profile->getId());
+        }
+        if (! $profiles) {
+            return $this->render('default/invoices.html.twig', array(
+                'profiles' => null
+            ));
+        }
         $invoices = $this->getDoctrine()
             ->getRepository('AppBundle:Invoice')
-            ->findAll();
+            ->findBy(
+                array('profile' => $profileIds)
+            );
 
         return $this->render('default/invoices.html.twig', array(
-            'invoices' => $invoices
+            'invoices' => $invoices,
+            'profiles' => $profiles
         ));
     }
 
