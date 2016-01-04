@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Entity\Invoice;
 use AppBundle\Entity\Item;
 use AppBundle\Entity\Client;
@@ -34,6 +35,7 @@ class DefaultController extends Controller
 
     /**
      * @Route("/new-client", name="new-client")
+     * @Security("has_role('ROLE_USER')")
      */
     public function newClientAction(Request $request)
     {
@@ -57,6 +59,7 @@ class DefaultController extends Controller
 
     /**
      * @Route("/new-invoice", name="new-invoice")
+     * @Security("has_role('ROLE_USER')")
      */
     public function newInvoiceAction(Request $request)
     {
@@ -87,6 +90,7 @@ class DefaultController extends Controller
 
     /**
      * @Route("/new-item/invoice/{invoice}", name="new-item")
+     * @Security("has_role('ROLE_USER')")
      */
     public function newItemAction(Request $request, $invoice)
     {
@@ -159,6 +163,7 @@ class DefaultController extends Controller
 
     /**
      * @Route("/invoice/{invoice}/item/{itemId}", name="edit-item")
+     * @Security("has_role('ROLE_USER')")
      */
     public function itemEditAction(Request $request, $invoice, $itemId)
     {
@@ -187,6 +192,7 @@ class DefaultController extends Controller
 
     /**
      * @Route("/profile/edit/{id}", name="edit-profile")
+     * @Security("has_role('ROLE_USER')")
      */
     public function itemProfileAction(Request $request, $id)
     {
@@ -216,6 +222,7 @@ class DefaultController extends Controller
 
     /**
      * @Route("/client/id/{id}", name="edit-client")
+     * @Security("has_role('ROLE_USER')")
      */
     public function itemClientAction(Request $request, $id)
     {
@@ -245,6 +252,7 @@ class DefaultController extends Controller
 
     /**
      * @Route("/invoice/edit/{id}", name="edit-invoice")
+     * @Security("has_role('ROLE_USER')")
      */
     public function invoiceAction(Request $request, $id)
     {
@@ -274,6 +282,7 @@ class DefaultController extends Controller
 
     /**
      * @Route("/invoice/delete/{id}", name="delete-invoice")
+     * @Security("has_role('ROLE_USER')")
      */
     public function deleteInvoiceAction($id)
     {
@@ -296,6 +305,7 @@ class DefaultController extends Controller
 
     /**
      * @Route("/profile/delete/{id}", name="delete-profile")
+     * @Security("has_role('ROLE_USER')")
      */
     public function deleteProfileAction($id)
     {
@@ -318,6 +328,7 @@ class DefaultController extends Controller
 
     /**
      * @Route("/client/delete/{id}", name="delete-client")
+     * @Security("has_role('ROLE_USER')")
      */
     public function deleteClientAction($id)
     {
@@ -340,6 +351,7 @@ class DefaultController extends Controller
 
     /**
      * @Route("/invoices", name="invoices")
+     * @Security("has_role('ROLE_USER')")
      */
     public function invoicesAction(Request $request)
     {
@@ -354,6 +366,7 @@ class DefaultController extends Controller
 
     /**
      * @Route("/clients", name="clients")
+     * @Security("has_role('ROLE_USER')")
      */
     public function clientsAction(Request $request)
     {
@@ -368,6 +381,7 @@ class DefaultController extends Controller
 
     /**
      * @Route("/profiles", name="profiles")
+     * @Security("has_role('ROLE_USER')")
      */
     public function profilesAction(Request $request)
     {
@@ -382,6 +396,7 @@ class DefaultController extends Controller
 
     /**
      * @Route("/invoice/id/{id}/items", name="invoice")
+     * @Security("has_role('ROLE_USER')")
      */
     public function itemsAction(Request $request, $id)
     {
@@ -408,6 +423,7 @@ class DefaultController extends Controller
 
     /**
      * @Route("/invoice/preview/{id}", name="preview")
+     * @Security("has_role('ROLE_USER')")
      */
     public function previewAction(Request $request, $id)
     {
@@ -440,6 +456,7 @@ class DefaultController extends Controller
 
     /**
      * @Route("/invoice/pdf/{id}", name="pdf")
+     * @Security("has_role('ROLE_USER')")
      */
     public function pdfAction(Request $request, $id)
     {
@@ -457,6 +474,7 @@ class DefaultController extends Controller
 
     /**
      * @Route("/new-profile", name="new-profile")
+     * @Security("has_role('ROLE_USER')")
      * @param Request $request
      * @return Response
      */

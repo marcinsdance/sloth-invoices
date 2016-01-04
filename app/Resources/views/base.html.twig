@@ -23,8 +23,23 @@
                         <a class="h1" href="{{ path('homepage') }}">VoiceIn</a><br>
                         <span class="h5">Invoice management</span>
                     </div>
-                    <div id="navbar" class="navbar-collapse navbar-nav col-sm-9">
-                        {{ knp_menu_render('AppBundle:Builder:mainMenu') }}
+                    <div id="navbar" class="navbar-collapse navbar-nav col-sm-6">
+                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                            {{ knp_menu_render('AppBundle:Builder:mainMenu') }}
+                        {% endif %}
+                    </div><!--/.nav-collapse -->
+                    <div id="navbar" class="navbar-collapse navbar-nav col-sm-3">
+                        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                            {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
+                            <a href="{{ path('fos_user_security_logout') }}">
+                                {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+                            </a>
+                        {% else %}
+                            <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a> |
+                            <a href="{{ path('fos_user_registration_register') }}">
+                                {{ 'layout.register'|trans({}, 'FOSUserBundle') }}
+                            </a>
+                        {% endif %}
                     </div><!--/.nav-collapse -->
                 </div>
                 <div class="row">

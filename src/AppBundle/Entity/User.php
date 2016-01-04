@@ -33,4 +33,9 @@ class User extends BaseUser
 
         return $this;
     }
+
+    public function getParent()
+    {
+        return 'FOSUserBundle';
+    }
 }
