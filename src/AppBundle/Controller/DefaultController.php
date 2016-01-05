@@ -92,6 +92,7 @@ class DefaultController extends Controller
      */
     public function newInvoiceAction(Request $request)
     {
+        $user = $this->container->get('security.context')->getToken()->getUser();
         $clients = $this->getDoctrine()
             ->getRepository('AppBundle:Client')
             ->findAll();

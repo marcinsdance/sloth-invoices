@@ -2,16 +2,27 @@
 
 namespace AppBundle\Form\Type;
 
+use Doctrine\ORM\EntityRepository;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class InvoiceType extends AbstractType
 {
+    private $tokenStorage;
+
+    public function __construct(TokenStorageInterface $tokenStorage)
+    {
+        $this->tokenStorage = $tokenStorage;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -39,8 +50,36 @@ class InvoiceType extends AbstractType
             ->add('save', 'submit', array(
                 'label' => 'Submit',
                 'attr' => array('class' => 'btn btn-primary')
-            ))
-            ->getForm();
+            ));
+
+        $user = $this->tokenStorage->getToken()->getUser();
+        if (!$user) {
+            throw new \LogicException(
+                'This form can\'t be used without an authenticated user.'
+            );
+        }
+
+        $builder->addEventListener(
+            FormEvents::PRE_SET_DATA,
+            function(FormEvent $event) use ($user) {
+                $form = $event->getForm();
+                $profilesOptions = array(
+                    'class' => 'AppBundle\Entity\Profile',
+                    'property' => 'name',
+                    'query_builder' => function (EntityRepository $er) use ($user) {
+                        return $er->getProfilesOptions();
+                    }
+                );
+                $clientsOptions = array(
+                    'class' => 'AppBundle\Entity\Profile',
+                    'property' => 'name',
+                    'query_builder' => function (EntityRepository $er) use ($user) {
+                        return $er->getClientsOptions();
+                    }
+                );
+                $form->add('profile', 'entity', $profilesOptions);
+                $form->add('client', 'entity', $clientsOptions);
+        });
     }
 
     public function configureOptions(OptionsResolver $resolver)

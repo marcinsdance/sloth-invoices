@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Class Invoice
  * @package AppBundle\Entity
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\InvoiceRepository")
  * @ORM\Table(name="invoice")
  */
 class Invoice
@@ -31,7 +31,6 @@ class Invoice
     protected $client;
 
     /**
-     * @ORM\Column(type="integer", nullable=false)
      * @ORM\ManyToOne(targetEntity="Profile", inversedBy="profile")
      * @ORM\JoinColumn(name="profile_id", referencedColumnName="id")
      */
