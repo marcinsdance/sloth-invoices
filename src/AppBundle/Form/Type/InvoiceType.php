@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormEvent;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
@@ -67,14 +68,16 @@ class InvoiceType extends AbstractType
                     'class' => 'AppBundle\Entity\Profile',
                     'property' => 'name',
                     'query_builder' => function (EntityRepository $er) use ($user) {
-                        return $er->getProfilesOptions();
+                        return $er->createQueryBuilder('profile')
+                            ->where('profile.user = ' . $user->getId());
                     }
                 );
                 $clientsOptions = array(
-                    'class' => 'AppBundle\Entity\Profile',
-                    'property' => 'name',
+                    'class' => 'AppBundle\Entity\Client',
+                    'property' => 'company_name',
                     'query_builder' => function (EntityRepository $er) use ($user) {
-                        return $er->getClientsOptions();
+                        return $er->createQueryBuilder('client')
+                            ->where('client.user = ' . $user->getId());
                     }
                 );
                 $form->add('profile', 'entity', $profilesOptions);

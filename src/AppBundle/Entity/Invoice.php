@@ -32,7 +32,7 @@ class Invoice
 
     /**
      * @ORM\ManyToOne(targetEntity="Profile", inversedBy="profile")
-     * @ORM\JoinColumn(name="profile_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="profile", referencedColumnName="id")
      */
     protected $profile;
 

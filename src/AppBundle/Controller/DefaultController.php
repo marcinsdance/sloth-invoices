@@ -110,6 +110,7 @@ class DefaultController extends Controller
                 'success',
                 'Invoice has been added.'
             );
+            return $this->redirectToRoute('invoices');
         }
 
         return $this->render('default/new-invoice.html.twig', array(
