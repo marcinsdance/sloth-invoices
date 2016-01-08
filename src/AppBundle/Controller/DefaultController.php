@@ -92,6 +92,7 @@ class DefaultController extends Controller
      */
     public function newInvoiceAction(Request $request)
     {
+        $user = $this->container->get('security.context')->getToken()->getUser();
         $clients = $this->getDoctrine()
             ->getRepository('AppBundle:Client')
             ->findAll();
@@ -109,6 +110,7 @@ class DefaultController extends Controller
                 'success',
                 'Invoice has been added.'
             );
+            return $this->redirectToRoute('invoices');
         }
 
         return $this->render('default/new-invoice.html.twig', array(

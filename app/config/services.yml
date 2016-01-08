@@ -9,6 +9,9 @@ services:
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
     form_invoice_type:
         class: AppBundle\Form\Type\InvoiceType
+        arguments: ['@security.token_storage']
+        tags:
+            - { name: form.type, alias: InvoiceType }
     form_client_type:
         class: AppBundle\Form\Type\ClientType
     form_item_type:
