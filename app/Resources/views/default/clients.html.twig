@@ -37,7 +37,7 @@
                         <td>{{ client.email2 }}</td>
                         <td>{{ client.language }}</td>
                         <td>{{ client.currency }}</td>
-                        <td><a href="client/id/{{ client.id }}">Edit</a> | <a href="{{ path('delete-client',{ 'id' : client.id }) }}">Delete</a></td>
+                        <td><a href="client/{{ client.id }}">Edit</a> | <a href="{{ path('delete-client',{ 'clientId' : client.id }) }}">Delete</a></td>
                     </tr>
                 {% endfor %}
             </tbody>

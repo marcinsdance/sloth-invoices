@@ -4,13 +4,13 @@
     {% if profiles is empty %}
         <div class="row">
             <div class="col-sm-12">
-                Please set up a profile and add a client before you add an invoice. <a href="{{ path('new-profile') }}">Add profile</a>
+                Please set up a profile and add a client before you add an invoice. <a href="{{ path('new-profile') }}">Add profile</a>.
             </div>
         </div>
     {% elseif invoices is empty %}
         <div class="row">
             <div class="col-sm-12">
-                There are no invoices yet. <a href="{{ path('new-invoice') }}">Add new invoice</a>
+                There are no invoices yet. <a href="{{ path('new-invoice') }}">Add new invoice</a>.
             </div>
         </div>
     {% else %}

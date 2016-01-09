@@ -40,7 +40,7 @@ class ClientController extends Controller
      * @Route("/client/edit/{clientId}", name="edit-client")
      * @Security("has_role('ROLE_USER')")
      */
-    public function itemClientAction(Request $request, $clientId)
+    public function editClientAction(Request $request, $clientId)
     {
         $em = $this->getDoctrine()->getManager();
         $client = $em->getRepository('AppBundle:Client')->find($clientId);
