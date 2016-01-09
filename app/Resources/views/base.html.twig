@@ -43,21 +43,29 @@
                     </div><!--/.nav-collapse -->
                 </div>
                 <div class="row">
-                    {% for flash_message in app.session.flashbag.get('notice') %}
-                        <div class="flash-notice">
-                            {{ flash_message }}
-                        </div>
-                    {% endfor %}
-                    {% for flash_message in app.session.flashbag.get('success') %}
-                        <div class="flash-success">
-                            {{ flash_message }}
-                        </div>
-                    {% endfor %}
-                    {% for flash_message in app.session.flashbag.get('error') %}
-                        <div class="flash-error">
-                            {{ flash_message }}
-                        </div>
-                    {% endfor %}
+                    <div class="col-sm-12">
+                        {% for flash_message in app.session.flashbag.get('notice') %}
+                            <div class="flash-notice alert alert-info" role="alert">
+                                <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                                <span class="sr-only">Info:</span>
+                                {{ flash_message }}
+                            </div>
+                        {% endfor %}
+                        {% for flash_message in app.session.flashbag.get('success') %}
+                            <div class="flash-succes alert alert-success" role="alert">
+                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                <span class="sr-only">Success:</span>
+                                {{ flash_message }}
+                            </div>
+                        {% endfor %}
+                        {% for flash_message in app.session.flashbag.get('error') %}
+                            <div class="flash-error alert alert-danger" role="alert">
+                                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                <span class="sr-only">Error:</span>
+                                {{ flash_message }}
+                            </div>
+                        {% endfor %}
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-12">

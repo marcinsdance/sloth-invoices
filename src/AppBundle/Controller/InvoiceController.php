@@ -23,9 +23,17 @@ class InvoiceController extends Controller
         if (!$profiles) {
             $this->addFlash(
                 'notice',
-                'Please add a profile before adding an invoice.'
+                'You\'ve been redirected to New Profile page. Please add a profile before adding an invoice.'
             );
             return $this->redirectToRoute('new-profile');
+        }
+
+        if (!$clients) {
+            $this->addFlash(
+                'notice',
+                'You\'ve been redirected to New Client page. Please add a client before adding an invoice.'
+            );
+            return $this->redirectToRoute('new-client');
         }
 
         $invoice = new Invoice();

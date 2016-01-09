@@ -11,12 +11,9 @@
         <table class="table table-striped table-bordered">
             <thead>
             <tr>
-                <th>Name</th>
+                <th>Profile Name</th>
                 <th>Company Name</th>
                 <th>Contact Name</th>
-                <th>Address</th>
-                <th>Telephone</th>
-                <th>Email</th>
                 <th>Actions</th>
             </tr>
             </thead>
@@ -26,14 +23,16 @@
                     <td>{{ profile.name }}</td>
                     <td>{{ profile.companyName }}</td>
                     <td>{{ profile.contactName }}</td>
-                    <td>{{ profile.address }}</td>
-                    <td>{{ profile.telephone }}</td>
-                    <td>{{ profile.email }}</td>
-                    <td><a href="{{ path('edit-profile',{ 'id' : profile.id }) }}">Edit</a> | <a href="{{ path('delete-profile',{ 'id' : profile.id }) }}">Delete</a></td>
+                    <td>
+                        <div class="btn-group">
+                            <a class="btn btn-info" href="{{ path('edit-profile',{ 'profileId' : profile.id }) }}">Edit</a>
+                            <a class="btn btn-danger" href="{{ path('delete-profile',{ 'id' : profile.id }) }}">Delete</a>
+                        </div>
+                    </td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
-        <a href="{{ path('new-profile') }}">Add new profile</a>
+        <a class="btn btn-primary" href="{{ path('new-profile') }}">Add new profile</a>
     {% endif %}
 {% endblock %}

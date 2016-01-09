@@ -16,6 +16,17 @@ class ClientController extends Controller
      */
     public function newClientAction(Request $request)
     {
+        $profiles = $this->get('voicein_helper')->getProfiles();
+        $clients = $this->get('voicein_helper')->getClients();
+
+        if (!$profiles) {
+            $this->addFlash(
+                'notice',
+                'You\'ve been redirected to New Profile page. Please add a profile before adding a client.'
+            );
+            return $this->redirectToRoute('new-profile');
+        }
+
         $user = $this->container->get('security.context')->getToken()->getUser();
         $client = new Client();
         $client->setUser($user->getId());
