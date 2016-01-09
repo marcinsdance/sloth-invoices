@@ -96,9 +96,11 @@ class ClientController extends Controller
     public function clientsAction(Request $request)
     {
         $clients = $this->get('voicein_helper')->getClients();
+        $profiles = $this->get('voicein_helper')->getProfiles();
 
         return $this->render('default/clients.html.twig', array(
-            'clients' => $clients
+            'clients' => $clients,
+            'profiles' => $profiles
         ));
     }
 }

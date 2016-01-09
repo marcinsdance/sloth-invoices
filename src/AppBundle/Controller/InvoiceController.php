@@ -17,10 +17,16 @@ class InvoiceController extends Controller
      */
     public function newInvoiceAction(Request $request)
     {
-        $user = $this->container->get('security.context')->getToken()->getUser();
-        $clients = $this->getDoctrine()
-            ->getRepository('AppBundle:Client')
-            ->findAll();
+        $profiles = $this->get('voicein_helper')->getProfiles();
+        $clients = $this->get('voicein_helper')->getClients();
+
+        if (!$profiles) {
+            $this->addFlash(
+                'notice',
+                'Please add a profile before adding an invoice.'
+            );
+            return $this->redirectToRoute('new-profile');
+        }
 
         $invoice = new Invoice();
         $form = $this->createForm($this->get('form_invoice_type'), $invoice);
@@ -40,7 +46,8 @@ class InvoiceController extends Controller
 
         return $this->render('default/new-invoice.html.twig', array(
             'form' => $form->createView(),
-            'clients' => $clients
+            'clients' => $clients,
+            'profiles' => $profiles
         ));
     }
 
@@ -103,30 +110,14 @@ class InvoiceController extends Controller
      */
     public function invoicesAction(Request $request)
     {
-        $user = $this->container->get('security.context')->getToken()->getUser();
-        $profiles = $this->getDoctrine()
-            ->getRepository('AppBundle:Profile')
-            ->findBy(
-                array('user' => $user)
-            );
-        $profileIds = array();
-        foreach($profiles as $profile) {
-            array_push($profileIds, $profile->getId());
-        }
-        if (! $profiles) {
-            return $this->render('default/invoices.html.twig', array(
-                'profiles' => null
-            ));
-        }
-        $invoices = $this->getDoctrine()
-            ->getRepository('AppBundle:Invoice')
-            ->findBy(
-                array('profile' => $profileIds)
-            );
+        $clients = $this->get('voicein_helper')->getClients();
+        $profiles = $this->get('voicein_helper')->getProfiles();
+        $invoices = $this->get('voicein_helper')->getInvoices();
 
         return $this->render('default/invoices.html.twig', array(
             'invoices' => $invoices,
-            'profiles' => $profiles
+            'profiles' => $profiles,
+            'clients' => $clients
         ));
     }
 

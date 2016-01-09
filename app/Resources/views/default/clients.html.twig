@@ -1,10 +1,16 @@
 {% extends "base.html.twig" %}
 {% block content %}
     <h1>Clients</h1>
-    {% if clients is empty %}
+    {% if profiles is empty %}
         <div class="row">
             <div class="col-sm-12">
-                There are no clients yet. <a href="{{ path('new-client') }}">Add new client</a>
+                Please add a profile first before adding a client. <a href="{{ path('new-profile') }}">Add new profile</a>.
+            </div>
+        </div>
+    {% elseif clients is empty %}
+        <div class="row">
+            <div class="col-sm-12">
+                There are no clients yet. <a href="{{ path('new-client') }}">Add new client</a>.
             </div>
         </div>
     {% else %}
