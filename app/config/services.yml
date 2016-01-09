@@ -22,6 +22,9 @@ services:
         class: AppBundle\Twig\Currency
         tags:
             - { name: twig.extension}
+    voicein_helper:
+        class: AppBundle\Service\Helper
+        arguments: ['@service_container','@doctrine.orm.entity_manager']
     app.form.registration:
         class: AppBundle\Form\Type\RegistrationType
         tags:

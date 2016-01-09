@@ -95,12 +95,7 @@ class ClientController extends Controller
      */
     public function clientsAction(Request $request)
     {
-        $user = $this->container->get('security.context')->getToken()->getUser();
-        $clients = $this->getDoctrine()
-            ->getRepository('AppBundle:Client')
-            ->findBy(
-                array('user' => $user)
-            );
+        $clients = $this->get('voicein_helper')->getClients();
 
         return $this->render('default/clients.html.twig', array(
             'clients' => $clients
