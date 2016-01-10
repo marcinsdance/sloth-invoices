@@ -37,10 +37,10 @@
                         <td>{{ invoice.client }}</td>
                         <td>{{ invoice.number }}</td>
                         <td>{{ invoice.date|date('Y-m-d') }}</td>
-                        <td><a href="invoice/edit/{{ invoice.id }}">Edit</a> |
-                            <a href="invoice/id/{{ invoice.id }}/items">Items</a> |
-                            <a href="invoice/delete/{{ invoice.id }}">Delete</a> |
-                            <a href="invoice/preview/{{ invoice.id }}">Preview</a> |
+                        <td><a href="{{ path('edit-invoice',{ 'invoiceId' : invoice.id }) }}">Edit</a> |
+                            <a href="{{ path('new-item',{ 'invoiceId' : invoice.id }) }}">Items</a> |
+                            <a href="{{ path('delete-invoice',{ 'invoiceId' : invoice.id }) }}">Delete</a> |
+                            <a href="{{ path('preview',{ 'invoiceId' : invoice.id }) }}">Preview</a> |
                             <a href="{{ path('pdf',{ 'invoiceId' : invoice.id }) }}">Pdf</a>
                         </td>
                     </tr>
