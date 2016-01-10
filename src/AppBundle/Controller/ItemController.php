@@ -33,6 +33,7 @@ class ItemController extends Controller
                 'success',
                 'Item has been added.'
             );
+            return $this->redirectToRoute('invoice',array('invoiceId' => $invoiceId));
         }
 
         return $this->render('default/new-item.html.twig', array(
@@ -51,10 +52,10 @@ class ItemController extends Controller
         if (!$item) {
             throw $this->createNotFoundException('No item found for id ' . $itemId);
         }
-        $invoiceObject = $this->getDoctrine()
+        $invoice = $this->getDoctrine()
             ->getRepository('AppBundle:Invoice')
             ->find($invoiceId);
-        $item->setInvoice($invoiceObject);
+        $item->setInvoice($invoice);
         $form = $this->createForm($this->get('form_item_type'), $item);
         $form->handleRequest($request);
 
@@ -67,6 +68,12 @@ class ItemController extends Controller
                 'Item has been changed.'
             );
         }
+
+        return $this->render('default/edit-item.html.twig', array(
+            'form' => $form->createView(),
+            'invoice' => $invoice,
+            'item' => $item
+        ));
     }
 
 
@@ -95,5 +102,28 @@ class ItemController extends Controller
             'items' => $items,
             'client' => $client[0]
         ));
+    }
+
+    /**
+     * @Route("/invoice/{invoiceId}/item/delete/{itemId}", name="delete-item")
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function deleteItemAction($invoiceId, $itemId)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $item = $em->getRepository('AppBundle:Item')->find($itemId);
+        if (! $item) {
+            throw $this->createNotFoundException('No item found for id ' . $itemId);
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($item);
+        $em->flush();
+        $this->addFlash(
+            'success',
+            'Item has been Removed.'
+        );
+
+        return $this->redirectToRoute('invoice',array('invoiceId' => $invoiceId));
     }
 }

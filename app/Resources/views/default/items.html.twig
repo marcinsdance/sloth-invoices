@@ -1,11 +1,12 @@
 {% extends "base.html.twig" %}
 {% block content %}
     <h1>Invoice ID #{{ invoice.id }}</h1>
-    <a href="{{ path('invoices') }}">Go Back to All Invoices</a>
+    <a class="btn btn-info" href="{{ path('invoices') }}">Go Back to All Invoices</a><br><br>
     {% if items is empty %}
         <div class="row">
             <div class="col-sm-12">
-                There are no items yet. <a href="{{ path('new-item', {'invoice': invoice.id}) }}">Add new item</a>
+                There are no items yet.<br>
+                <a class="btn btn-primary" href="{{ path('new-item', {'invoiceId': invoice.id}) }}">Add new item</a>
             </div>
         </div>
     {% else %}
@@ -26,11 +27,16 @@
             <td class="editable" data-update="description">{{ item.description }}</td>
             <td class="editable" data-update="value">{{ client.currency }} {{ item.value | number_format(2) }}</td>
             <td>{{ client.currency }} {{ (item.qty * item.value) | number_format(2) }}</td>
-            <td><a href="{{ path('edit-item', {'invoice' : invoice.id, 'itemId' : item.id}) }}">Edit</a></td>
+            <td>
+                <div class="btn-group">
+                    <a class="btn btn-info" href="{{ path('edit-item', {'invoiceId' : invoice.id, 'itemId' : item.id}) }}">Edit</a>
+                    <a class="btn btn-danger" href="{{ path('delete-item', {'invoiceId' : invoice.id, 'itemId' : item.id}) }}">Delete</a>
+                </div>
+            </td>
         </tr>
     {% endfor %}
     </tbody>
 </table>
-    <a href="{{ path('new-item', {'invoice' : invoice.id}) }}">Add new item</a>
+    <a class="btn btn-primary" href="{{ path('new-item', {'invoiceId' : invoice.id}) }}">Add new item</a>
     {% endif %}
 {% endblock %}
