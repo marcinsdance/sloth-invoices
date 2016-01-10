@@ -168,10 +168,16 @@ class InvoiceController extends Controller
      */
     public function pdfAction(Request $request, $invoiceId)
     {
-        $pageUrl = $this->generateUrl('preview', array('id' => $invoiceId), true); // use absolute path!
+        $pageUrl = $this->generateUrl('preview', array('invoiceId' => $invoiceId), true); // use absolute path!
+        $session = $this->get('session');
+        $session->save();
+        session_write_close();
 
         return new Response(
-            $this->get('knp_snappy.pdf')->getOutput($pageUrl),
+            $this->get('knp_snappy.pdf')->getOutput(
+                $pageUrl,
+                array('cookie' => array($session->getName() => $session->getId()))
+            ),
             200,
             array(
                 'Content-Type'          => 'application/pdf',
