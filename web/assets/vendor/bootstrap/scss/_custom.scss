@@ -1,4 +1,4 @@
-$header-height: 40px;
+$header-height: 5px;
 $footer-height: 80px;
 
 html {
@@ -19,7 +19,12 @@ body > .container {
     bottom: 0;
     width: 100%;
     height: $footer-height;
-    background-color: #f5f5f5;
+    background-color: #fff;
+}
+.logo {
+    img {
+        max-width: 100%;
+    }
 }
 
 // PDF styling
