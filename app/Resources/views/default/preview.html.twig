@@ -1,90 +1,130 @@
-{% extends "pdf.html.twig" %}
-{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    {% block stylesheets %}{% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    <!--        <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap/dist/css/bootstrap.min.css', absolute=true) }}">-->
+    <link rel="stylesheet" href="http://voicein.dev/assets/vendor/bootstrap/dist/css/bootstrap.min.css">
+</head>
+<body>
+{% block body %}
+<div class="container">
     <div class="row">
-        <div class="col-sm-8">
+        <div class="col-sm-12 col">
+            <div class="row">
+                <div class="col-xs-8">
+                </div>
+                <div class="col-xs-4">
+                    <h3>Invoice ID #{{ invoice.id }}</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4">
+                    <h5>{{ profile.name }}</h5>
+                    <h6>{{ profile.slogan }}</h6>
+                </div>
+                <div class="col-xs-4 logo container">
+                    <img src="{{ asset('uploads/documents/' ~ profile.logoPath) }}"/>
+                </div>
+                <div class="col-xs-4">
+                    Date: {{ invoice.date | date('F jS Y') }}<br>
+                    Customer ID: {{ client.id }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-9">
+                    <span class="to">To:</span><br>
+                    {{ client.companyName }}<br>
+                    {{ client.address }}<br>
+                    tel: {{ client.telephone1 }}<br>
+                    email: {{ client.email1 }}<br>
+                </div>
+                <div class="col-xs-3">&nbsp;</div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12"><p>&nbsp;</p></div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3"><strong>Issued by</strong></div>
+                <div class="col-xs-3"><strong>Job title</strong></div>
+                <div class="col-xs-3"><strong>Payment terms</strong></div>
+                <div class="col-xs-3"><strong>Due date</strong></div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3">{{ profile.contactName }}</div>
+                <div class="col-xs-3">Project Manager</div>
+                <div class="col-xs-3">Due upon receipt</div>
+                <div class="col-xs-3">{{ invoice.date | date('F jS Y') }}</div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12"><p>&nbsp;</p></div>
+            </div>
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Qty</th>
+                        <th>Description</th>
+                        <th>Value</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% set total = 0 %}
+                {% for item in items %}
+                    <tr data-url="{#{{ path('item-edit', {'invoice': invoice.id, 'itemId': item.id}) }}#}">
+                        <td class="editable" data-update="qty">{{ item.qty }}</td>
+                        <td class="editable" data-update="description">{{ item.description }}</td>
+                        <td class="editable" data-update="value">{{ currency(client.currency) }}{{ item.value | number_format(2) }}</td>
+                        <td>{{ currency(client.currency) }}{{ (item.qty * item.value) | number_format(2) }}</td>
+                    </tr>
+                    {% set total = total + (item.qty * item.value) %}
+                {% endfor %}
+                </tbody>
+            </table>
         </div>
-        <div class="col-sm-4">
-            <h1>Invoice ID #{{ invoice.id }}</h1>
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-2">Bank Name</div>
+            <div class="col-xs-2">{{ profile.bankName }}</div>
+            <div class="col-xs-2">Company Registration #</div>
+            <div class="col-xs-2">{{ profile.companyRegistrationNumber }}</div>
+            <div class="col-xs-4">&nbsp;</div>
+        </div>
+        <div class="row">
+            <div class="col-xs-2">Account #</div>
+            <div class="col-xs-2">{{ profile.bankAccount }}</div>
+            <div class="col-xs-8">&nbsp;</div>
+        </div>
+        <div class="row">
+            <div class="col-xs-2">Sort Code</div>
+            <div class="col-xs-2">{{ profile.sortCode }}</div>
+            <div class="col-xs-4">&nbsp;</div>
+            <div class="col-xs-2"><h2>Total</h2></div>
+            <div class="col-xs-2"><h2>{{ currency(client.currency) }}{{ total | number_format(2) }}</h2></div>
+        </div>
+        <div class="row pdf-bottom-row">
+            <div class="col-xs-12"><h5>Make all payments to {{ profile.companyName }}</h5></div>
+            <div class="col-xs-12"><h2>Thank you for your business!</h2></div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-sm-4">
-            <h1>{{ profile.name }}</h1>
-            <h4>{{ profile.slogan }}</h4>
-        </div>
-        <div class="col-sm-4 logo container">
-            <img src="{{ asset('uploads/documents/' ~ profile.logoPath) }}"/>
-        </div>
-        <div class="col-sm-4">
-            Date: {{ invoice.date | date('F jS Y') }}<br>
-            Customer ID: {{ client.id }}
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-5">
-            <span class="to">To:</span>
-            {{ client.companyName }}<br>
-            {{ client.address }}<br>
-            tel: {{ client.telephone1 }}<br>
-            email: {{ client.email1 }}<br>
-        </div>
-        <div class="col-sm-7">&nbsp;</div>
-    </div>
-    <div class="row">
-        <div class="col-sm-3">Issued by</div>
-        <div class="col-sm-3">Job title</div>
-        <div class="col-sm-3">Payment terms</div>
-        <div class="col-sm-3">Due date</div>
-    </div>
-    <div class="row">
-        <div class="col-sm-3">{{ profile.contactName }}</div>
-        <div class="col-sm-3">Project Manager</div>
-        <div class="col-sm-3">Due upon receipt</div>
-        <div class="col-sm-3">{{ invoice.date | date('F jS Y') }}</div>
-    </div>
-    <table class="table table-striped table-bordered">
-        <thead>
-            <tr>
-                <th>Qty</th>
-                <th>Description</th>
-                <th>Value</th>
-                <th>Total</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% set total = 0 %}
-        {% for item in items %}
-            <tr data-url="{#{{ path('item-edit', {'invoice': invoice.id, 'itemId': item.id}) }}#}">
-                <td class="editable" data-update="qty">{{ item.qty }}</td>
-                <td class="editable" data-update="description">{{ item.description }}</td>
-                <td class="editable" data-update="value">{{ currency(client.currency) }}{{ item.value | number_format(2) }}</td>
-                <td>{{ currency(client.currency) }}{{ (item.qty * item.value) | number_format(2) }}</td>
-            </tr>
-            {% set total = total + (item.qty * item.value) %}
-        {% endfor %}
-        </tbody>
-    </table>
-    <div class="row">
-        <div class="col-sm-2">Bank Name</div>
-        <div class="col-sm-2">{{ profile.bankName }}</div>
-        <div class="col-sm-2">Company Registration #</div>
-        <div class="col-sm-2">{{ profile.companyRegistrationNumber }}</div>
-        <div class="col-sm-4">&nbsp;</div>
-    </div>
-    <div class="row">
-        <div class="col-sm-2">Account #</div>
-        <div class="col-sm-2">{{ profile.bankAccount }}</div>
-        <div class="col-sm-8">&nbsp;</div>
-    </div>
-    <div class="row">
-        <div class="col-sm-2">Sort Code</div>
-        <div class="col-sm-2">{{ profile.sortCode }}</div>
-        <div class="col-sm-5">&nbsp;</div>
-        <div class="col-sm-1"><h2>Total</h2></div>
-        <div class="col-sm-2"><h2>{{ currency(client.currency) }}{{ total | number_format(2) }}</h2></div>
-    </div>
-    <div class="row pdf-bottom-row">
-        <div class="col-sm-12"><h5>Make all payments to {{ profile.companyName }}</h5></div>
-        <div class="col-sm-12"><h2>Thank you for your business!</h2></div>
-    </div>
+</footer>
+{% block javascripts %}{% endblock %}
+    <script src="{{ asset('assets/vendor/jquery/dist/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/jquery-ui/ui/minified/core.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/jQuery.editable/src/jquery.editable.js') }}"></script>
+    <script src="{{ asset('assets/vendor/jquery-ui/ui/minified/datepicker.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/tether/dist/js/tether.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/tether-drop/dist/js/drop.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/tether-tooltip/dist/js/tooltip.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/voicein/js/voicein.js') }}"></script>
 {% endblock %}
+</body>
+</html>
