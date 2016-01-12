@@ -14,39 +14,21 @@ class Builder implements ContainerAwareInterface
     {
         $menu = $factory->createItem('root');
         $menu->setChildrenAttribute('class','nav');
-        $menu->addChild('Invoices')
+        $menu->addChild('Invoices', array('route' => 'invoices'))
             ->setAttribute('class','nav-item dropdown')
             ->setLabelAttribute('class','dropdown-toggle')
             ->setLabelAttribute('data-toggle','dropdown')
             ->setChildrenAttribute('class','dropdown-menu');
-        $menu->addChild('Clients')
+        $menu->addChild('Clients', array('route' => 'clients'))
             ->setAttribute('class','nav-item dropdown')
             ->setLabelAttribute('class','dropdown-toggle')
             ->setLabelAttribute('data-toggle','dropdown')
             ->setChildrenAttribute('class','dropdown-menu');
-        $menu->addChild('Profiles')
+        $menu->addChild('Profiles', array('route' => 'profiles'))
             ->setAttribute('class','nav-item dropdown')
             ->setLabelAttribute('class','dropdown-toggle')
             ->setLabelAttribute('data-toggle','dropdown')
             ->setChildrenAttribute('class','dropdown-menu');
-        $menu['Invoices']->addChild('All Invoices', array('route' => 'invoices'))
-            ->setAttribute('class','dropdown-item')
-            ->setLinkAttribute('class','nav-link');
-        $menu['Invoices']->addChild('New Invoice', array('route' => 'new-invoice'))
-            ->setAttribute('class','dropdown-item')
-            ->setLinkAttribute('class','nav-link');
-        $menu['Clients']->addChild('All Clients', array('route' => 'clients'))
-            ->setAttribute('class','dropdown-item')
-            ->setLinkAttribute('class','nav-link');
-        $menu['Clients']->addChild('New Client', array('route' => 'new-client'))
-            ->setAttribute('class','dropdown-item')
-            ->setLinkAttribute('class','nav-link');
-        $menu['Profiles']->addChild('All Profiles', array('route' => 'profiles'))
-            ->setAttribute('class','dropdown-item')
-            ->setLinkAttribute('class','nav-link');
-        $menu['Profiles']->addChild('New Profile', array('route' => 'new-profile'))
-            ->setAttribute('class','dropdown-item')
-            ->setLinkAttribute('class','nav-link');
         return $menu;
     }
 }
