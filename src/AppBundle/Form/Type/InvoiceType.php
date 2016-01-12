@@ -26,33 +26,6 @@ class InvoiceType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('number', null, array(
-                'attr' => array('class'=>'form-control'),
-                'label_attr' => array('class'=>'form-control-label'
-                )))
-            ->add('date', null, array(
-                'widget' => 'single_text',
-                'attr' => array('class'=>'form-control datepicker'),
-                'label_attr' => array('class'=>'form-control-label')
-            ))
-            ->add('client', null, array(
-                'property' => 'company_name',
-                'attr' => array('class'=>'form-control'),
-                'label_attr' => array('class'=>'form-control-label'),
-                'placeholder' => '- Choose Client -'
-            ))
-            ->add('profile', null, array(
-                'property' => 'name',
-                'attr' => array('class'=>'form-control'),
-                'label_attr' => array('class'=>'form-control-label'),
-                'placeholder' => '- Choose Profile -'
-            ))
-            ->add('save', 'submit', array(
-                'label' => 'Submit',
-                'attr' => array('class' => 'btn btn-primary')
-            ));
-
         $user = $this->tokenStorage->getToken()->getUser();
         if (!$user) {
             throw new \LogicException(
@@ -60,7 +33,15 @@ class InvoiceType extends AbstractType
             );
         }
 
-        $builder->addEventListener(
+        $builder->add('number', null, array(
+            'attr' => array('class'=>'form-control'),
+            'label_attr' => array('class'=>'form-control-label'
+            )))
+            ->add('date', null, array(
+                'widget' => 'single_text',
+                'attr' => array('class'=>'form-control datepicker'),
+                'label_attr' => array('class'=>'form-control-label')
+            ))->addEventListener(
             FormEvents::PRE_SET_DATA,
             function(FormEvent $event) use ($user) {
                 $form = $event->getForm();
@@ -70,7 +51,10 @@ class InvoiceType extends AbstractType
                     'query_builder' => function (EntityRepository $er) use ($user) {
                         return $er->createQueryBuilder('profile')
                             ->where('profile.user = ' . $user->getId());
-                    }
+                    },
+                    'attr' => array('class'=>'form-control'),
+                    'label_attr' => array('class'=>'form-control-label'),
+                    'placeholder' => '- Choose Profile -'
                 );
                 $clientsOptions = array(
                     'class' => 'AppBundle\Entity\Client',
@@ -78,10 +62,17 @@ class InvoiceType extends AbstractType
                     'query_builder' => function (EntityRepository $er) use ($user) {
                         return $er->createQueryBuilder('client')
                             ->where('client.user = ' . $user->getId());
-                    }
+                    },
+                    'attr' => array('class'=>'form-control'),
+                    'label_attr' => array('class'=>'form-control-label'),
+                    'placeholder' => '- Choose Client -'
                 );
                 $form->add('profile', 'entity', $profilesOptions);
                 $form->add('client', 'entity', $clientsOptions);
+                $form->add('save', 'submit', array(
+                        'label' => 'Submit',
+                        'attr' => array('class' => 'btn btn-primary')
+                    ));
         });
     }
 
