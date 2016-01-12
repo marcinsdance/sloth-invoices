@@ -39,7 +39,10 @@ body > .container {
     text-align: center;
 }
 
-#fos_user_registration_form {
+// Profile forms
+#fos_user_registration_form,
+#fos_user_change_password_form,
+#fos_user_profile_form {
     label {
         width: 150px;
     }

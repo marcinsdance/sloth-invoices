@@ -8796,11 +8796,15 @@ body > .container {
   text-align: center;
 }
 
-#fos_user_registration_form label {
+#fos_user_registration_form label,
+#fos_user_change_password_form label,
+#fos_user_profile_form label {
   width: 150px;
 }
 
-#fos_user_registration_form > div {
+#fos_user_registration_form > div,
+#fos_user_change_password_form > div,
+#fos_user_profile_form > div {
   margin-bottom: 5px;
 }
 /*# sourceMappingURL=bootstrap.css.map */
