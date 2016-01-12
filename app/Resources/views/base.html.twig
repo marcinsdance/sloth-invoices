@@ -13,15 +13,16 @@
         {% block body %}
             <div class="container">
                 <div class="row header">
-                    <div class="navbar-header col-sm-3">
+                    <div class="navbar-header col-sm-2">
+                        <a class="logo" href="{{ path('homepage') }}"><img src="{{ asset('assets/vendor/voicein/images/logo.png') }}" /></a>
+                    </div>
+                    <div class="navbar-header col-sm-1">
                         <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                             <span class="sr-only">Toggle navigation</span>
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="h1" href="{{ path('homepage') }}">VoiceIn</a><br>
-                        <span class="h5">Invoice management</span>
                     </div>
                     <div id="navbar" class="navbar-collapse navbar-nav col-sm-6">
                         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
