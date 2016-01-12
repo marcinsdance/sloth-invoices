@@ -13,22 +13,16 @@ class Builder implements ContainerAwareInterface
     public function mainMenu(FactoryInterface $factory, array $options)
     {
         $menu = $factory->createItem('root');
-        $menu->setChildrenAttribute('class','nav');
+        $menu->setChildrenAttribute('class','nav navbar-nav');
         $menu->addChild('Invoices', array('route' => 'invoices'))
-            ->setAttribute('class','nav-item dropdown')
-            ->setLabelAttribute('class','dropdown-toggle')
-            ->setLabelAttribute('data-toggle','dropdown')
-            ->setChildrenAttribute('class','dropdown-menu');
+            ->setAttribute('class','nav-link nav-item')
+            ->setLinkAttribute('data-hover','Invoices');
         $menu->addChild('Clients', array('route' => 'clients'))
-            ->setAttribute('class','nav-item dropdown')
-            ->setLabelAttribute('class','dropdown-toggle')
-            ->setLabelAttribute('data-toggle','dropdown')
-            ->setChildrenAttribute('class','dropdown-menu');
+            ->setAttribute('class','nav-link nav-item')
+            ->setLinkAttribute('data-hover','Clients');
         $menu->addChild('Profiles', array('route' => 'profiles'))
-            ->setAttribute('class','nav-item dropdown')
-            ->setLabelAttribute('class','dropdown-toggle')
-            ->setLabelAttribute('data-toggle','dropdown')
-            ->setChildrenAttribute('class','dropdown-menu');
+            ->setAttribute('class','nav-link nav-item')
+            ->setLinkAttribute('data-hover','Profiles');
         return $menu;
     }
 }

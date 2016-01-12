@@ -1,16 +1,22 @@
 {% extends "base.html.twig" %}
 {% block content %}
-    <h1>Invoices</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8">&nbsp;</div>
+            <div class="col-sm-4"><h1 class="text-uppercase">Invoices</h1></div>
+        </div>
+    </div>
     {% if profiles is empty %}
         <div class="row">
-            <div class="col-sm-12">
-                Please add a profile first before adding an invoice. <a href="{{ path('new-profile') }}">Add new profile</a>.
+            <div class="col-sm-12 text-lg-center">
+                Please add a profile first before adding an invoice.<br><br>
+                <a class="btn btn-primary" href="{{ path('new-profile') }}">Add new profile</a>
             </div>
         </div>
     {% elseif clients is empty %}
         <div class="row">
             <div class="col-sm-12">
-                Please add a client first before adding an invoice. <a href="{{ path('new-client') }}">Add new client</a>.
+                Please add a client first before adding an invoice. <a class="btn btn-primary" href="{{ path('new-client') }}">Add new client</a>
             </div>
         </div>
     {% elseif invoices is empty %}

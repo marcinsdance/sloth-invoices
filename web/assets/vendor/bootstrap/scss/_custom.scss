@@ -27,6 +27,87 @@ body > .container {
     }
 }
 
+#navbar {
+    height: 58px;
+}
+// Menu
+#navbar,
+#authentication-links {
+    font-size: 14px;
+    background: #aab7b7;
+    a {
+        float: left;
+        position: relative;
+        display: inline-block;
+        margin: 15px 15px;
+        outline: none;
+        text-decoration: none;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: 400;
+        font-size: 1.35em;
+        color: #232727;
+        text-shadow: 0 0 1px rgba(111,134,134,0.3);
+        font-family: 'Raleway', sans-serif;
+    }
+    a::before {
+        color: #fff;
+        content: attr(data-hover);
+        position: absolute;
+        opacity: 0;
+        text-shadow: 0 0 1px rgba(255,255,255,0.3);
+        -webkit-transform: scale(1.1) translateX(10px) translateY(-10px) rotate(4deg);
+        -moz-transform: scale(1.1) translateX(10px) translateY(-10px) rotate(4deg);
+        transform: scale(1.1) translateX(10px) translateY(-10px) rotate(4deg);
+        -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
+        -moz-transition: -moz-transform 0.3s, opacity 0.3s;
+        transition: transform 0.3s, opacity 0.3s;
+        pointer-events: none;
+    }
+    a:hover::before,
+    a:focus::before {
+        -webkit-transform: scale(1) translateX(0px) translateY(0px) rotate(0deg);
+        -moz-transform: scale(1) translateX(0px) translateY(0px) rotate(0deg);
+        transform: scale(1) translateX(0px) translateY(0px) rotate(0deg);
+        opacity: 1;
+    }
+    li {
+        &.current {
+            a {
+                color: #fff;
+            }
+        }
+    }
+    .navbar-toggle {
+        border-color: #ddd;
+    }
+    .navbar-toggle:hover,
+    .navbar-toggle:focus {
+        background-color: #ddd;
+    }
+    .navbar-toggle .icon-bar {
+        background-color: #888;
+    }
+    .navbar-toggle:hover .icon-bar,
+    .navbar-toggle:focus .icon-bar {
+        background-color: #888;
+    }
+    .navbar-nav {
+        .nav-link {
+            padding: 1px;
+        }
+    }
+}
+#authentication-links {
+    float: right;
+    a {
+        font-size: 1em;
+        &.nav-link {
+            margin: 11px 15px;
+        }
+    }
+}
+
 // PDF styling
 .container {
     &.logo {
