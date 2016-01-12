@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Entity\Profile;
 
-class ProfileController extends Controller
+class VoicenProfileController extends Controller
 {
     /**
      * @Route("/profile/edit/{profileId}", name="edit-profile")
