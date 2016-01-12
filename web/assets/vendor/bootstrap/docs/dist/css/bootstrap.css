@@ -8791,4 +8791,12 @@ body > .container {
 .pdf-bottom-row {
   text-align: center;
 }
+
+#fos_user_registration_form label {
+  width: 150px;
+}
+
+#fos_user_registration_form > div {
+  margin-bottom: 5px;
+}
 /*# sourceMappingURL=bootstrap.css.map */
