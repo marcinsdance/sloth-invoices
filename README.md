@@ -30,4 +30,4 @@ cd web/assets/vendor/bootstrap; grunt watch<br><br>
 
 &#35;TODO change frontend setup...<br><br>
 
-You can check the working version of the project at: <a href="http://invoice.expandingweb.com/" target="_blank">http://invoice.expandingweb.com/</a>
+You can check the working version of the project at: <a href="http://invoice.expandingweb.com/" target="_blank">http//invoice.expandingweb.com/</a>
