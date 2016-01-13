@@ -8,6 +8,9 @@ html {
 body {
     margin-bottom: $footer-height;
 }
+a {
+    color: steelblue;
+}
 body > .container {
     padding: $header-height 15px $footer-height 0;
 }
@@ -19,7 +22,6 @@ body > .container {
     bottom: 0;
     width: 100%;
     height: $footer-height;
-    background-color: #fff;
 }
 .logo {
     img {
@@ -34,7 +36,7 @@ body > .container {
 #navbar,
 #authentication-links {
     font-size: 14px;
-    background: #aab7b7;
+    background: steelblue;
     a {
         float: left;
         position: relative;

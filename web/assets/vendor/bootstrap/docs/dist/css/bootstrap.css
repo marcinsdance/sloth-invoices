@@ -8768,6 +8768,10 @@ body {
   margin-bottom: 80px;
 }
 
+a {
+  color: steelblue;
+}
+
 body > .container {
   padding: 5px 15px 80px 0;
 }
@@ -8781,7 +8785,6 @@ body > .container {
   bottom: 0;
   width: 100%;
   height: 80px;
-  background-color: #fff;
 }
 
 .logo img {
@@ -8795,7 +8798,7 @@ body > .container {
 #navbar,
 #authentication-links {
   font-size: 14px;
-  background: #aab7b7;
+  background: steelblue;
 }
 
 #navbar a,
