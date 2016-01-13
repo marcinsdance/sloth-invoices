@@ -25,3 +25,8 @@ monolog:
             level: debug
         console:
             type:  console
+framework:
+    templating:
+        engines: ['twig']
+        assets_base_url:
+          - "//invoice.expandingweb.com/"
