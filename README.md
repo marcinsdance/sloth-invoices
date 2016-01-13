@@ -1,4 +1,4 @@
-<h1>Sloth Invoices</h1>
+<h1>Sloth Invoices (v01 Alpha)</h1>
 
 This is my first project built with Symfony 2.7
 This script allows you to create invoices.
