@@ -23,7 +23,11 @@ composer install
 bower install
 php app/console doctrine:schema:update --force
 
+You will also need <a href="http://wkhtmltopdf.org/" target="_blank">wkhtmltopdf</a> installed on your server.
+
 Grunt is used for merging sass files with bootstrap:
 cd web/assets/vendor/bootstrap; grunt watch
 
 &#35;TODO change frontend setup...
+
+You can check the working version of the project at: http://invoice.expandingweb.com/
