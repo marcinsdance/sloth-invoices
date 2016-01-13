@@ -8914,4 +8914,16 @@ body > .container {
 #fos_user_profile_form > div {
   margin-bottom: 5px;
 }
+
+#fos_user_registration_form > div ul,
+#fos_user_change_password_form > div ul,
+#fos_user_profile_form > div ul {
+  position: absolute;
+  top: 0;
+  margin-left: 340px;
+  font-size: 14px;
+  line-height: 18px;
+  color: red;
+  list-style: none;
+}
 /*# sourceMappingURL=bootstrap.css.map */

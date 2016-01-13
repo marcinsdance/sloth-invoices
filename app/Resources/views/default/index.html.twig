@@ -3,10 +3,25 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-lg-center">
-                <h3>Welcome to Sloth Invoices!</h3><br>
-                <h4>Free open source invoice management system!</h4>
-                <h5><strong><a href="{{ path('fos_user_security_login') }}">Log in</a></strong> or
-                    <strong><a href="{{ path('fos_user_registration_register') }}">Register</a></strong></h5>
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    {% if profiles is empty %}
+                        <h3>You haven't got any profile setup yet</h3><br>
+                        <h4><a class="btn btn-primary" href="{{ path('new-profile') }}">Add New Profile</a></h4>
+                    {% elseif clients is empty %}
+                        <h3>You haven't got any client setup yet</h3><br>
+                        <h4><a class="btn btn-primary" href="{{ path('new-client') }}">Add New Client</a></h4>
+                    {% elseif invoices is empty %}
+                        <h3>You haven't got any invoice setup yet</h3><br>
+                        <h4><a class="btn btn-primary" href="{{ path('new-invoice') }}">Add New Invoice</a></h4>
+                    {% endif %}
+                {% else %}
+                    <h3>Welcome to Sloth Invoices!</h3><br>
+                    <h4>Free open source invoice management system!</h4>
+                    <h5>
+                        <strong><a href="{{ path('fos_user_security_login') }}">Log in</a></strong> or
+                        <strong><a href="{{ path('fos_user_registration_register') }}">Register</a></strong>
+                    </h5>
+                {% endif %}
             </div>
         </div>
     </div>

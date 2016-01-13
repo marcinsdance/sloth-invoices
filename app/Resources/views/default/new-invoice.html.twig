@@ -3,7 +3,7 @@
     <h1>New Invoice</h1>
     {% if clients is empty %}
         You need to have at least one client to create an invoice.<br>
-        <a href="{{ path('new-client') }}">Add New Client</a>
+        <a class="btn btn-primary" href="{{ path('new-client') }}">Add New Client</a>
     {% else %}
         {% form_theme form 'form/form_div_layout.html.twig' %}
         {{ form_start(form) }}

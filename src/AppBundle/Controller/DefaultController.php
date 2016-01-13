@@ -13,9 +13,14 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-        // replace this example code with whatever you need
+        $profiles = $this->get('voicein_helper')->getProfiles();
+        $clients = $this->get('voicein_helper')->getClients();
+        $invoices = $this->get('voicein_helper')->getInvoices();
+
         return $this->render('default/index.html.twig', array(
-            'base_dir' => realpath($this->container->getParameter('kernel.root_dir').'/..'),
+            'profiles' => $profiles,
+            'invoices' => $invoices,
+            'clients' => $clients
         ));
     }
 }
