@@ -1,5 +1,6 @@
 {% extends "base.html.twig" %}
 {% block content %}
+    {{ wo_render_breadcrumbs() }}
     <h1>New Invoice</h1>
     {% if clients is empty %}
         You need to have at least one client to create an invoice.<br>
