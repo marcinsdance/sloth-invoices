@@ -9,7 +9,6 @@ use Symfony\Bundle\FrameworkBundle\Routing\Router;
 
 class Listener
 {
-    protected $twig;
     protected $requestStack;
     protected $whiteOctoberBreadcrumbsBundle;
     protected $router;
@@ -20,12 +19,10 @@ class Listener
      * @param RequestStack $requestStack
      */
     public function __construct(
-        \Twig_Environment $twig,
         RequestStack $requestStack,
         Breadcrumbs $whiteOctoberBreadcrumbsBundle,
         Router $router)
     {
-        $this->twig = $twig;
         $this->requestStack = $requestStack;
         $this->whiteOctoberBreadcrumbsBundle = $whiteOctoberBreadcrumbsBundle;
         $this->router = $router;
@@ -37,10 +34,9 @@ class Listener
             ->getPathInfo();
         $breadcrumbs = $this->whiteOctoberBreadcrumbsBundle;
         $breadcrumbs->addItem("Home", $this->router->generate("home"));
-        $breadcrumbsEnd = str_replace('/','',$route);
-        $breadcrumbsEnd = ucfirst($breadcrumbsEnd);
+        $route = ltrim($route,'/');
+        $breadcrumbsEnd = str_replace('/',' » ',$route);
+        $breadcrumbsEnd = ucwords($breadcrumbsEnd);
         $breadcrumbs->addItem($breadcrumbsEnd);
-
-        $this->twig->addGlobal('myvar', $route);
     }
 }

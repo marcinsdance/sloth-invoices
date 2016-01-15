@@ -28,7 +28,22 @@ body > .container {
         max-width: 100%;
     }
 }
-
+.breadcrumbs-wrapper {
+    width: 100%;
+    display: inline-block;
+}
+.breadcrumb {
+    float: left;
+    background-color: transparent;
+    border-radius: 0;
+    padding: 2px;
+    li {
+        float: left;
+    }
+    .separator {
+        margin: 0 5px;
+    }
+}
 #navbar {
     height: 58px;
 }

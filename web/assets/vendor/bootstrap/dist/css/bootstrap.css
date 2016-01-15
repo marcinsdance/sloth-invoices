@@ -8791,6 +8791,26 @@ body > .container {
   max-width: 100%;
 }
 
+.breadcrumbs-wrapper {
+  display: inline-block;
+  width: 100%;
+}
+
+.breadcrumb {
+  float: left;
+  padding: 2px;
+  background-color: transparent;
+  border-radius: 0;
+}
+
+.breadcrumb li {
+  float: left;
+}
+
+.breadcrumb .separator {
+  margin: 0 5px;
+}
+
 #navbar {
   height: 58px;
 }

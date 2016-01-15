@@ -17,9 +17,6 @@ class InvoiceController extends Controller
      */
     public function newInvoiceAction(Request $request)
     {
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("home"))
-            ->addItem("Some text without link");
         $profiles = $this->get('voicein_helper')->getProfiles();
         $clients = $this->get('voicein_helper')->getClients();
 

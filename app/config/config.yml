@@ -111,4 +111,5 @@ knp_menu:
     default_renderer: twig
 
 # White October Breadcrumbs
-white_october_breadcrumbs: ~
+white_october_breadcrumbs:
+    separator: ' » '

@@ -31,6 +31,6 @@ services:
             - { name: form.type, alias: app_user_registration }
     voicein_listener:
         class: AppBundle\Listener\Listener
-        arguments: ['@twig','@request_stack','@white_october_breadcrumbs','@router']
+        arguments: ['@request_stack','@white_october_breadcrumbs','@router']
         tags:
             - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
