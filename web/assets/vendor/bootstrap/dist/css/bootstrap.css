@@ -8787,10 +8787,6 @@ body > .container {
   height: 80px;
 }
 
-.logo img {
-  max-width: 100%;
-}
-
 .breadcrumbs-wrapper {
   display: inline-block;
   width: 100%;
@@ -8836,6 +8832,16 @@ body > .container {
   text-transform: uppercase;
   letter-spacing: 1px;
   outline: none;
+}
+
+#navbar a.logo,
+#authentication-links a.logo {
+  margin-top: 0;
+}
+
+#navbar a.logo img,
+#authentication-links a.logo img {
+  max-width: 100%;
 }
 
 #navbar a::before,

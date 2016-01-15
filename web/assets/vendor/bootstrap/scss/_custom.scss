@@ -23,11 +23,6 @@ body > .container {
     width: 100%;
     height: $footer-height;
 }
-.logo {
-    img {
-        max-width: 100%;
-    }
-}
 .breadcrumbs-wrapper {
     width: 100%;
     display: inline-block;
@@ -66,6 +61,12 @@ body > .container {
         color: #232727;
         text-shadow: 0 0 1px rgba(111,134,134,0.3);
         font-family: 'Raleway', sans-serif;
+        &.logo {
+            margin-top: 0;
+            img {
+                max-width: 100%;
+            }
+        }
     }
     a::before {
         color: #fff;
