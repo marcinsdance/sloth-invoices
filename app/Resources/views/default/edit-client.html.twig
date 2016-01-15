@@ -1,7 +1,7 @@
 {% extends "base.html.twig" %}
 {% block content %}
-    <h1>Edit Client Id {{ client.id }}</h1>
-    <a href="{{ path('profiles') }}">Go Back to Profiles</a>
+    <h1>Edit Client: {{ client.companyName }}</h1>
+    <a class="btn btn-info" href="{{ path('clients') }}">Go Back to Clients</a>
     {% form_theme form 'form/form_div_layout.html.twig' %}
     {{ form_start(form) }}
     {{ form_widget(form) }}

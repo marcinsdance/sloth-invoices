@@ -1,7 +1,7 @@
 {% extends "base.html.twig" %}
 {% block content %}
     <h1>Edit Invoice Id {{ invoice.id }}</h1>
-    <a href="{{ path('invoices') }}">Go Back to Invoices</a>
+    <a class="btn btn-info" href="{{ path('invoices') }}">Go Back to All Invoices</a><br><br>
     {% form_theme form 'form/form_div_layout.html.twig' %}
     {{ form_start(form) }}
     {{ form_widget(form) }}

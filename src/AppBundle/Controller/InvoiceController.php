@@ -60,7 +60,7 @@ class InvoiceController extends Controller
     }
 
     /**
-     * @Route("/invoice/edit/{invoiceId}", name="edit-invoice")
+     * @Route("/invoice/{invoiceId}/edit", name="edit-invoice")
      * @Security("has_role('ROLE_USER')")
      */
     public function invoiceAction(Request $request, $invoiceId)
@@ -90,7 +90,7 @@ class InvoiceController extends Controller
     }
 
     /**
-     * @Route("/invoice/delete/{invoiceId}", name="delete-invoice")
+     * @Route("/invoice/{invoiceId}/delete", name="delete-invoice")
      * @Security("has_role('ROLE_USER')")
      */
     public function deleteInvoiceAction($invoiceId)
@@ -130,7 +130,7 @@ class InvoiceController extends Controller
     }
 
     /**
-     * @Route("/invoice/preview/{invoiceId}", name="preview")
+     * @Route("/invoice/{invoiceId}/preview", name="preview")
      * @Security("has_role('ROLE_USER')")
      */
     public function previewAction(Request $request, $invoiceId)
@@ -163,7 +163,7 @@ class InvoiceController extends Controller
     }
 
     /**
-     * @Route("/invoice/pdf/{invoiceId}", name="pdf")
+     * @Route("/invoice/{invoiceId}/pdf", name="pdf")
      * @Security("has_role('ROLE_USER')")
      */
     public function pdfAction(Request $request, $invoiceId)

@@ -23,7 +23,10 @@ class ProfileType extends AbstractType
                 'attr' => array('class'=>'form-control'),
                 'label_attr' => array('class'=>'form-control-label'
                 )))
-            ->add('file')
+            ->add('file', null, array(
+                'attr' => array('class'=>'form-control'),
+                'label' => 'Logo',
+            ))
             ->add('company_registration_number', null, array(
                 'attr' => array('class'=>'form-control'),
                 'label_attr' => array('class'=>'form-control-label')

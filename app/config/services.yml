@@ -29,8 +29,8 @@ services:
         class: AppBundle\Form\Type\RegistrationType
         tags:
             - { name: form.type, alias: app_user_registration }
-    voicein_listener:
-        class: AppBundle\Listener\Listener
+    voicein_request_listener:
+        class: AppBundle\Listener\RequestListener
         arguments: ['@request_stack','@white_october_breadcrumbs','@router']
         tags:
             - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }

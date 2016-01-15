@@ -1,6 +1,7 @@
 {% extends "base.html.twig" %}
 {% block content %}
     <h1>New Invoice</h1>
+    <a class="btn btn-info" href="{{ path('invoices') }}">Go Back to All Invoices</a><br><br>
     {% if clients is empty %}
         You need to have at least one client to create an invoice.<br>
         <a class="btn btn-primary" href="{{ path('new-client') }}">Add New Client</a>

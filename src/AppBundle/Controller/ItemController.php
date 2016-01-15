@@ -17,10 +17,10 @@ class ItemController extends Controller
     public function newItemAction(Request $request, $invoiceId)
     {
         $item = new Item();
-        $invoiceObject = $this->getDoctrine()
+        $invoice = $this->getDoctrine()
             ->getRepository('AppBundle:Invoice')
             ->find($invoiceId);
-        $item->setInvoice($invoiceObject);
+        $item->setInvoice($invoice);
         $form = $this->createForm($this->get('form_item_type'), $item);
 
         $form->handleRequest($request);
@@ -37,7 +37,8 @@ class ItemController extends Controller
         }
 
         return $this->render('default/new-item.html.twig', array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'invoice' => $invoice,
         ));
     }
 
