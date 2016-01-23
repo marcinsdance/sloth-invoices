@@ -8931,19 +8931,25 @@ body > .container {
 
 #fos_user_registration_form label,
 #fos_user_change_password_form label,
-#fos_user_profile_form label {
+#fos_user_profile_form label,
+#EmailType label {
+  float: left;
   width: 150px;
 }
 
 #fos_user_registration_form > div,
 #fos_user_change_password_form > div,
-#fos_user_profile_form > div {
+#fos_user_profile_form > div,
+#EmailType > div {
+  display: inline-table;
+  width: 100%;
   margin-bottom: 5px;
 }
 
 #fos_user_registration_form > div ul,
 #fos_user_change_password_form > div ul,
-#fos_user_profile_form > div ul {
+#fos_user_profile_form > div ul,
+#EmailType > div ul {
   position: absolute;
   top: 0;
   margin-left: 340px;

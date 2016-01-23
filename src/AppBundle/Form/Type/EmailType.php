@@ -40,27 +40,29 @@ class EmailType extends AbstractType
 
         $builder
             ->add('email', 'email', array(
-                'attr' => array(
-                    'placeholder' => 'So I can get back to you.'
-                )
+                'attr' => array('placeholder' => 'email@example.com'),
+                'label' => 'Email To',
+                'label_attr' => array('class'=>'form-control-label')
             ))
             ->add('subject', 'text', array(
                 'attr' => array(
-                    'placeholder' => 'The subject of your message.',
+                    'placeholder' => 'Subject',
                     'pattern'     => '.{3,}' //minlength
-                )
+                ),
+                'label_attr' => array('class'=>'form-control-label')
             ))
             ->add('message', 'textarea', array(
                 'attr' => array(
-                    'cols' => 90,
-                    'rows' => 10,
-                    'placeholder' => 'And your message to me...'
-                )
+                    'cols' => 60,
+                    'rows' => 5,
+                    'placeholder' => 'Your message'
+                ),
+                'label_attr' => array('class'=>'form-control-label')
             ))
-        ->add('send', 'submit', array(
-            'label' => 'Send',
-            'attr' => array('class' => 'btn btn-primary')
-        ));
+            ->add('send', 'submit', array(
+                'label' => 'Send',
+                'attr' => array('class' => 'btn btn-primary')
+            ));
     }
 
     public function configureOptions(OptionsResolver $resolver)
@@ -69,19 +71,7 @@ class EmailType extends AbstractType
             'email' => array(
                 new NotBlank(array('message' => 'Email should not be blank.')),
                 new Email(array('message' => 'Invalid email address.'))
-            ),
-            'subject' => array(
-                new NotBlank(array('message' => 'Subject should not be blank.')),
-                new Length(array('min' => 3))
-            ),
-            'message' => array(
-                new NotBlank(array('message' => 'Message should not be blank.')),
-                new Length(array('min' => 5))
             )
-        ));
-
-        $resolver->setDefaults(array(
-            'constraints' => $collectionConstraint
         ));
     }
 

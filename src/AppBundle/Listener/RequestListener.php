@@ -53,7 +53,7 @@ class RequestListener
         $breadcrumbs->addItem("Home", $this->router->generate("home"));
         if ( $routeName === 'new-client' ||  $routeName === 'edit-client') {
             $breadcrumbs->addItem("Clients", $this->router->generate("clients"));
-        } else if ($routeName === 'new-invoice') {
+        } else if ($routeName === 'new-invoice' || $routeName === 'email') {
             $breadcrumbs->addItem("Invoices", $this->router->generate("invoices"));
         } else if ($routeName === 'edit-invoice' ||  $routeName === 'invoice') {
             $breadcrumbs->addItem("Invoice", $this->router->generate("invoice", array('invoiceId' => $invoiceId)));
@@ -127,6 +127,9 @@ class RequestListener
                 break;
             case 'delete-item' :
                 $breadcrumbsEnd = 'Delete Item';
+                break;
+            case 'email' :
+                $breadcrumbsEnd = 'Email';
                 break;
             case 'fos_user_profile_show' :
                 $breadcrumbsEnd = 'Profile';

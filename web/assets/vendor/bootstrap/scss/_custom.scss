@@ -138,15 +138,19 @@ body > .container {
     text-align: center;
 }
 
-// Profile forms
+// Forms
 #fos_user_registration_form,
 #fos_user_change_password_form,
-#fos_user_profile_form {
+#fos_user_profile_form,
+#EmailType {
     label {
         width: 150px;
+        float: left;
     }
     > div {
         margin-bottom: 5px;
+        display: inline-table;
+        width: 100%;
         ul {
             position: absolute;
             margin-left: 340px;

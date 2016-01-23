@@ -168,7 +168,7 @@ class InvoiceController extends Controller
      */
     public function pdfAction(Request $request, $invoiceId)
     {
-        $pageUrl = $this->generateUrl('preview', array('invoiceId' => $invoiceId), true); // use absolute path!
+        $pageUrl = $this->generateUrl('preview', array('invoiceId' => $invoiceId), true);
         $session = $this->get('session');
         $session->save();
         session_write_close();
@@ -192,6 +192,10 @@ class InvoiceController extends Controller
      */
     public function emailAction(Request $request, $invoiceId)
     {
+        $pageUrl = $this->generateUrl('preview', array('invoiceId' => $invoiceId), true);
+        $session = $this->get('session');
+        $session->save();
+        session_write_close();
         $em = $this->getDoctrine()->getManager();
         $invoice = $em->getRepository('AppBundle:Invoice')->find($invoiceId);
         if (! $invoice) {
@@ -199,6 +203,7 @@ class InvoiceController extends Controller
         }
         $form = $this->createForm($this->get('form_email_type'));
         $form->handleRequest($request);
+        $this->get('knp_snappy.pdf')->generate('http://www.google.fr', '/tmp/fac2e3e855d8a0ccfc74.pdf', array(), true);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $message = \Swift_Message::newInstance()
@@ -213,7 +218,8 @@ class InvoiceController extends Controller
                             'message' => $form->get('message')->getData()
                         )
                     )
-                );
+                )
+            ->attach(\Swift_Attachment::fromPath('/tmp/fac2e3e855d8a0ccfc74.pdf'));
 
             $this->get('mailer')->send($message);
 
