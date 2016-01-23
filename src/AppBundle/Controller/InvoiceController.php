@@ -187,6 +187,49 @@ class InvoiceController extends Controller
     }
 
     /**
+     * @Route("/invoice/{invoiceId}/email", name="email")
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function emailAction(Request $request, $invoiceId)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $invoice = $em->getRepository('AppBundle:Invoice')->find($invoiceId);
+        if (! $invoice) {
+            throw $this->createNotFoundException('No invoice found for id ' . $invoiceId);
+        }
+        $form = $this->createForm($this->get('form_email_type'));
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $message = \Swift_Message::newInstance()
+                ->setSubject($form->get('subject')->getData())
+                ->setFrom($form->get('email')->getData())
+                ->setTo('mdancewicz@gmail.com')
+                ->setBody(
+                    $this->renderView(
+                        'default/mail.html.twig',
+                        array(
+                            'ip' => $request->getClientIp(),
+                            'message' => $form->get('message')->getData()
+                        )
+                    )
+                );
+
+            $this->get('mailer')->send($message);
+
+            $this->addFlash(
+                'success',
+                'Email has been sent.'
+            );
+        }
+
+        return $this->render('default/email-invoice.html.twig', array(
+            'form' => $form->createView(),
+            'invoice' => $invoice
+        ));
+    }
+
+    /**
      * Ajax work - commented out for now
      * @Route("/invoice/{invoice}/item/{itemId}", name="edit-item")
      */

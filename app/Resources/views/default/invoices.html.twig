@@ -48,6 +48,7 @@
                                 <a class="btn btn-info" href="{{ path('new-item',{ 'invoiceId' : invoice.id }) }}">Add Item</a>
                                 <a class="btn btn-info" href="{{ path('preview',{ 'invoiceId' : invoice.id }) }}">Preview</a>
                                 <a class="btn btn-info" href="{{ path('pdf',{ 'invoiceId' : invoice.id }) }}">Pdf</a>
+                                <a class="btn btn-info" href="{{ path('email',{ 'invoiceId' : invoice.id }) }}">Email</a>
                                 <a class="btn btn-danger" href="{{ path('delete-invoice',{ 'invoiceId' : invoice.id }) }}">Delete</a>
                             </div>
                         </td>
