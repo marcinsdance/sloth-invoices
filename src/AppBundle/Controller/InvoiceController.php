@@ -192,6 +192,7 @@ class InvoiceController extends Controller
      */
     public function emailAction(Request $request, $invoiceId)
     {
+        $pageUrl = $this->generateUrl('preview', array('invoiceId' => $invoiceId), true);
         $session = $this->get('session');
         $session->save();
         session_write_close();
@@ -202,7 +203,11 @@ class InvoiceController extends Controller
         }
         $form = $this->createForm($this->get('form_email_type'), array(), array('invoice_id' => $invoice->getNumber()));
         $form->handleRequest($request);
-        $this->get('knp_snappy.pdf')->generate('http://www.google.fr', '/tmp/fac2e3e855d8a0ccfc74.pdf', array(), true);
+        $this->get('knp_snappy.pdf')->generate(
+            $pageUrl,
+            '/tmp/invoice_' . $invoice->getNumber() . '.pdf',
+            array('cookie' => array($session->getName() => $session->getId())),
+            true);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $message = \Swift_Message::newInstance()
@@ -218,7 +223,7 @@ class InvoiceController extends Controller
                         )
                     )
                 )
-            ->attach(\Swift_Attachment::fromPath('/tmp/fac2e3e855d8a0ccfc74.pdf'));
+            ->attach(\Swift_Attachment::fromPath('/tmp/invoice_' . $invoice->getNumber() . '.pdf'));
 
             if ($this->get('mailer')->send($message)) {
                 $this->addFlash(
