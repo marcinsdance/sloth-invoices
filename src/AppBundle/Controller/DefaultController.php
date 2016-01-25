@@ -16,6 +16,9 @@ class DefaultController extends Controller
         $profiles = $this->get('voicein_helper')->getProfiles();
         $clients = $this->get('voicein_helper')->getClients();
         $invoices = $this->get('voicein_helper')->getInvoices();
+        if(count($profiles) > 0 && count($clients) > 0) {
+            return $this->redirectToRoute('invoices');
+        }
 
         return $this->render('default/index.html.twig', array(
             'profiles' => $profiles,
