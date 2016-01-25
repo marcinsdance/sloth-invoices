@@ -4,6 +4,7 @@ namespace AppBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\IsTrue;
 use FOS\UserBundle\Util\LegacyFormHelper;
 
 
@@ -35,6 +36,17 @@ class RegistrationType extends AbstractType
             'translation_domain' => 'FOSUserBundle',
             'attr' => array('class' => 'form-control'),
             'label_attr' => array('class' => 'form-control-label')
+        ))->add('accept_toc', 'checkbox', array(
+            'label' => 'I accept terms & conditions',
+            'attr' => array(
+                'class' => 'form-control',
+                'help'=>'text help'
+            ),
+            'label_attr' => array('class' => 'form-control-label'),
+            'mapped' => FALSE,
+            "constraints" => new IsTrue(array(
+                    "message" => "Please accept the Terms and conditions in order to register")
+            ),
         ));
     }
 

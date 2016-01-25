@@ -149,6 +149,9 @@ class RequestListener
             case 'fos_user_change_password' :
                 $breadcrumbsEnd = 'Change Password';
                 break;
+            case 'tac' :
+                $breadcrumbsEnd = 'Terms And Conditions';
+                break;
         }
         if ($breadcrumbsEnd !== '') {
             $breadcrumbs->addItem($breadcrumbsEnd);
