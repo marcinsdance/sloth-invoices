@@ -26,4 +26,12 @@ class DefaultController extends Controller
             'clients' => $clients
         ));
     }
+
+    /**
+     * @Route("terms-and-conditions", name="tac")
+     */
+    public function tacAction(Request $request)
+    {
+        return $this->render('default/tac.html.twig');
+    }
 }
