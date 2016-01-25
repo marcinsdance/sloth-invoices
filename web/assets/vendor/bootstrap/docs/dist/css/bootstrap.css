@@ -8780,6 +8780,15 @@ body > .container {
   padding-bottom: 40px;
 }
 
+.container-header {
+  max-height: 100%;
+}
+
+.container-header > .row {
+  display: inline-table;
+  width: 100%;
+}
+
 .footer {
   position: absolute;
   bottom: 0;
@@ -8808,7 +8817,13 @@ body > .container {
 }
 
 #navbar {
-  height: 58px;
+  height: auto;
+}
+
+@media (min-width: 544px) {
+  #navbar {
+    height: 58px;
+  }
 }
 
 #navbar,
@@ -8929,6 +8944,7 @@ body > .container {
   text-align: center;
 }
 
+#login-form label,
 #fos_user_registration_form label,
 #fos_user_change_password_form label,
 #fos_user_profile_form label,
@@ -8937,6 +8953,7 @@ body > .container {
   width: 150px;
 }
 
+#login-form > div,
 #fos_user_registration_form > div,
 #fos_user_change_password_form > div,
 #fos_user_profile_form > div,
@@ -8946,6 +8963,7 @@ body > .container {
   margin-bottom: 5px;
 }
 
+#login-form > div ul,
 #fos_user_registration_form > div ul,
 #fos_user_change_password_form > div ul,
 #fos_user_profile_form > div ul,

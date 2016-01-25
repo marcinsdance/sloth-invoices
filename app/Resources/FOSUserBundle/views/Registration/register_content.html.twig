@@ -1,5 +1,10 @@
 {% trans_default_domain 'FOSUserBundle' %}
-
+<div class="container">
+    <div class="row">
+        <div class="col-sm-8">&nbsp;</div>
+        <div class="col-sm-4"><h1 class="text-uppercase">Register</h1></div>
+    </div>
+</div>
 {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'form-inline'}}) }}
     {{ form_widget(form) }}
     <div>
