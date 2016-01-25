@@ -32,6 +32,7 @@ class EmailType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $user = $this->tokenStorage->getToken()->getUser();
+        $email = $user->getEmail();
         if (!$user) {
             throw new \LogicException(
                 'This form can\'t be used without an authenticated user.'
@@ -39,25 +40,27 @@ class EmailType extends AbstractType
         }
 
         $builder
-            ->add('email', 'email', array(
-                'attr' => array('placeholder' => 'email@example.com'),
+            ->add('emailfrom', 'email', array(
+                'attr' => array('value' => $email),
+                'label' => 'Email From',
+                'label_attr' => array('class'=>'form-control-label')
+            ))
+            ->add('emailto', 'email', array(
+                'attr' => array('placeholder' => 'recipient@example.com'),
                 'label' => 'Email To',
                 'label_attr' => array('class'=>'form-control-label')
             ))
             ->add('subject', 'text', array(
-                'attr' => array(
-                    'placeholder' => 'Subject',
-                    'pattern'     => '.{3,}' //minlength
-                ),
+                'attr' => array('value' => 'Invoice ' . $options['invoice_id']),
                 'label_attr' => array('class'=>'form-control-label')
             ))
             ->add('message', 'textarea', array(
                 'attr' => array(
                     'cols' => 60,
-                    'rows' => 5,
-                    'placeholder' => 'Your message'
+                    'rows' => 5
                 ),
-                'label_attr' => array('class'=>'form-control-label')
+                'label_attr' => array('class'=>'form-control-label'),
+                'data' => 'Please see invoice ' . $options['invoice_id'] . ' attached.'
             ))
             ->add('send', 'submit', array(
                 'label' => 'Send',
@@ -72,6 +75,10 @@ class EmailType extends AbstractType
                 new NotBlank(array('message' => 'Email should not be blank.')),
                 new Email(array('message' => 'Invalid email address.'))
             )
+        ));
+
+        $resolver->setDefaults( array(
+            'invoice_id' => ''
         ));
     }
 

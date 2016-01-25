@@ -192,7 +192,6 @@ class InvoiceController extends Controller
      */
     public function emailAction(Request $request, $invoiceId)
     {
-        $pageUrl = $this->generateUrl('preview', array('invoiceId' => $invoiceId), true);
         $session = $this->get('session');
         $session->save();
         session_write_close();
@@ -201,15 +200,15 @@ class InvoiceController extends Controller
         if (! $invoice) {
             throw $this->createNotFoundException('No invoice found for id ' . $invoiceId);
         }
-        $form = $this->createForm($this->get('form_email_type'));
+        $form = $this->createForm($this->get('form_email_type'), array(), array('invoice_id' => $invoice->getNumber()));
         $form->handleRequest($request);
         $this->get('knp_snappy.pdf')->generate('http://www.google.fr', '/tmp/fac2e3e855d8a0ccfc74.pdf', array(), true);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $message = \Swift_Message::newInstance()
                 ->setSubject($form->get('subject')->getData())
-                ->setFrom($form->get('email')->getData())
-                ->setTo('mdancewicz@gmail.com')
+                ->setFrom($form->get('emailfrom')->getData())
+                ->setTo($form->get('emailto')->getData())
                 ->setBody(
                     $this->renderView(
                         'default/mail.html.twig',
@@ -221,12 +220,18 @@ class InvoiceController extends Controller
                 )
             ->attach(\Swift_Attachment::fromPath('/tmp/fac2e3e855d8a0ccfc74.pdf'));
 
-            $this->get('mailer')->send($message);
+            if ($this->get('mailer')->send($message)) {
+                $this->addFlash(
+                    'success',
+                    'Email has been sent.'
+                );
+            } else {
+                $this->addFlash(
+                    'error',
+                    'Error occured'
+                );
+            }
 
-            $this->addFlash(
-                'success',
-                'Email has been sent.'
-            );
         }
 
         return $this->render('default/email-invoice.html.twig', array(

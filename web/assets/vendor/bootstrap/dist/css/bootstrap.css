@@ -8958,4 +8958,8 @@ body > .container {
   color: red;
   list-style: none;
 }
+
+#EmailType input {
+  width: 300px;
+}
 /*# sourceMappingURL=bootstrap.css.map */
