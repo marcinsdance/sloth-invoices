@@ -174,7 +174,7 @@ class InvoiceController extends Controller
         session_write_close();
 
         return new Response(
-            $this->get('knp_snappy.pdf')->getOutput(
+/*            $this->get('knp_snappy.pdf')->getOutput(
                 $pageUrl,
                 array('cookie' => array($session->getName() => $session->getId()))
             ),
@@ -183,7 +183,7 @@ class InvoiceController extends Controller
                 'Content-Type'          => 'application/pdf',
                 'Content-Disposition'   => 'attachment; filename="file.pdf"'
             )
-        );
+        );*/
     }
 
     /**
@@ -203,11 +203,11 @@ class InvoiceController extends Controller
         }
         $form = $this->createForm($this->get('form_email_type'), array(), array('invoice_id' => $invoice->getNumber()));
         $form->handleRequest($request);
-        $this->get('knp_snappy.pdf')->generate(
+/*        $this->get('knp_snappy.pdf')->generate(
             $pageUrl,
             '/tmp/invoice_' . $invoice->getNumber() . '.pdf',
             array('cookie' => array($session->getName() => $session->getId())),
-            true);
+            true);*/
 
         if ($form->isSubmitted() && $form->isValid()) {
             $message = \Swift_Message::newInstance()

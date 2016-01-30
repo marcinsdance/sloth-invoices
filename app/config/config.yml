@@ -92,17 +92,6 @@ fos_user:
         form:
             type: app_user_registration
 
-# KnpSnappyBundle
-knp_snappy:
-    pdf:
-        enabled:    true
-        binary:     /usr/local/bin/wkhtmltopdf
-        options:    []
-    image:
-        enabled:    true
-        binary:     /usr/local/bin/wkhtmltoimage
-        options:    []
-
 knp_menu:
     # use "twig: false" to disable the Twig extension and the TwigRenderer
     twig:
