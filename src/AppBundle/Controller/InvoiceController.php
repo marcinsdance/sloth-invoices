@@ -173,8 +173,8 @@ class InvoiceController extends Controller
         $session->save();
         session_write_close();
 
-        return new Response(
-/*            $this->get('knp_snappy.pdf')->getOutput(
+/*        return new Response(
+            $this->get('knp_snappy.pdf')->getOutput(
                 $pageUrl,
                 array('cookie' => array($session->getName() => $session->getId()))
             ),
