@@ -172,6 +172,76 @@ class InvoiceController extends Controller
         $session = $this->get('session');
         $session->save();
         session_write_close();
+        $invoice = $this->getDoctrine()
+            ->getRepository('AppBundle:Invoice')
+            ->find($invoiceId);
+        $clientArray = $this->getDoctrine()
+            ->getRepository('AppBundle:Client')
+            ->findBy(
+                array('id' => $invoice->getClient())
+            );
+        $profileArray = $this->getDoctrine()
+            ->getRepository('AppBundle:Profile')
+            ->findBy(
+                array('id' => $invoice->getProfile())
+            );
+        $client = $clientArray[0];
+        $profile = $profileArray[0];
+        $pdf = $this->get("white_october.tcpdf")->create();
+//        $pdf->setDate($invoice->getDate);
+//        $pdf->setInvoiceNumber($invoice->getNumber);
+//        $pdf->setCustomerId('5');
+        $pdf->SetCreator(PDF_CREATOR);
+        $pdf->SetAuthor($profile->getContactName());
+        $pdf->SetTitle($profile->getCompanyName());
+        $pdf->SetSubject('(Invoice');
+        $pdf->SetKeywords('Invoice, PDF');
+        $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE, PDF_HEADER_STRING);
+        $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+        $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+        $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+        $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+        $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+        $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+//        $pdf->setLanguageArray($l);
+        $pdf->AddPage();
+        $pdf->SetFillColor(109, 119, 144);
+// To
+        $pdf->setCellPaddings(1, 0.2, 0, 0);
+        $pdf->setCellMargins(0, 1, 1, 1);
+        $pdf->SetTextColor(255, 255, 255);
+//        $pdf->SetFont($headerfont[0], 'N', $headerfont[2] + 10);
+        $pdf->MultiCell(55, 5, 'To:', 0, 'L', 1, 0, '', '', true);
+        $pdf->SetTextColor(46, 56, 81);
+        $pdf->MultiCell(100, 5, $client->getContactName(), 0, 'L', 0, 1, 14, 58, true);
+        $pdf->MultiCell(100, 5, $client->getContactName(), 0, 'L', 0, 1, 14, 63, true);
+// header
+        $pdf->SetTextColor(255, 255, 255);
+        $pdf->setCellMargins(0, 0, 0, 0);
+        $pdf->setCellPaddings(1, 1, 0, 1);
+        $pdf->MultiCell(45, 5, 'Developer', 0, 'L', 1, 0, '', '', true);
+        $pdf->MultiCell(45, 5, 'Job', 0, 'L', 1, 0, '', '', true);
+        $pdf->MultiCell(45, 5, 'Payment Terms', 0, 'L', 1, 0, '', '', true);
+        $pdf->MultiCell(45, 5, 'Due Date', 0, 'L', 1, 1, '', '', true);
+        $pdf->SetTextColor(46, 56, 81);
+        $pdf->setCellMargins(0, 1, 1, 1);
+        $pdf->MultiCell(44, 5, $profile->getContactName(), 0, 'L', 0, 0, '', '', true);
+        $pdf->MultiCell(44, 5, 'Project Manager', 0, 'L', 0, 0, '', '', true);
+        $pdf->MultiCell(44, 5, 'Due upon receipt', 0, 'L', 0, 0, '', '', true);
+        $pdf->MultiCell(44, 5, $profile->getContactName() . "\n"."\n", 0, 'L', 0, 1, '', '', true);
+// listing
+        $pdf->SetTextColor(255, 255, 255);
+        $pdf->setCellMargins(0, 0, 0, 0);
+        $pdf->MultiCell(15, 5, 'Qty', 0, 'L', 1, 0, '', '', true);
+        $pdf->MultiCell(115, 5, 'Description', 0, 'L', 1, 0, '', '', true);
+        $pdf->MultiCell(25, 5, 'Unit Price', 0, 'L', 1, 0, '', '', true);
+        $pdf->MultiCell(25, 5, 'Line Total', 0, 'C', 1, 1, '', '', true);
+        $pdf->SetTextColor(46, 56, 81);
+        $pdf->setCellMargins(0, 0.2, 0, 0);
+        $pdf->Output('filename.pdf');
+        return new Response();
 
 /*        return new Response(
             $this->get('knp_snappy.pdf')->getOutput(
