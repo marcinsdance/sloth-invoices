@@ -22,7 +22,8 @@
 
     <div class="form-group">
         <label for="password">{{ 'security.login.password'|trans }}</label>
-        <input type="password" id="password" name="_password" required="required" />
+        <input type="password" id="password" name="_password" required="required" /><br>
+        <a href="{{ path('fos_user_resetting_request') }}">Reset password</a>
     </div>
 
     <div class="checkbox">
