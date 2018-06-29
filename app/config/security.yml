@@ -29,7 +29,7 @@ security:
             logout:       true
             anonymous:    true
             remember_me:
-                secret: '%secret%'
+                key:      "%secret%"
                 lifetime: 604800 # 1 week in seconds
                 path: /
 
