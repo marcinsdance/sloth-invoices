@@ -29,4 +29,4 @@ framework:
     templating:
         engines: ['twig']
         assets_base_url:
-          - "//sloth-invoices.expandingweb.com/"
+          - "//slothinvoices.expandingweb.com/"

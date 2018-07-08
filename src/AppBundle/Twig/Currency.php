@@ -8,7 +8,7 @@ class Currency extends \Twig_Extension
 {
     public function getFunctions() {
         return array(
-            'currency' => new \Twig_Function_Method($this, 'currencyFunction'),
+            new \Twig_SimpleFunction('currency', array($this, 'currencyFunction')),
         );
     }
 
