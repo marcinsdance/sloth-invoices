@@ -1,5 +1,5 @@
 var fnDatepicker = function() {
-    $('.datepicker').datepicker();
+    $('.datepicker').datepicker({ dateFormat: 'dd-mm-yy' });
 };
 
 var fnEditable = function() {
